@@ -5,7 +5,7 @@ library(dplyr)
 
 ################################# Download Proteome data
 
-query.transcriptomic.chol <- GDCquery(
+query.proteomic.chol <- GDCquery(
   project = "TCGA-CHOL", #Adenomas and Adenocarcinomas
   data.category = "Proteome Profiling", #Proteome data
   data.type = "Protein Expression Quantification",
@@ -13,21 +13,21 @@ query.transcriptomic.chol <- GDCquery(
 )
 
 GDCdownload(
-  query = query.transcriptomic.chol,
+  query = query.proteomic.chol,
   files.per.chunk = 100
 )
 
 ############################### Analysis of Proteome data
 
-chol.transcriptomic.exp <- GDCprepare(
-  query = query.transcriptomic.chol, 
+chol.proteomic.exp <- GDCprepare(
+  query = query.proteomic.chol, 
   save = TRUE, 
   save.filename = "choltranscriptomicexp.rda"
 )
 
 protein.id <- read.csv("ProteinID.csv")
 id_column <- "AGID"
-filtered_data <- chol.transcriptomic.exp %>%
+filtered_data <- chol.proteomic.exp %>%
   filter(AGID %in% protein.id[[id_column]])
 
 write.csv(filtered_data, "Filtered_Proteome_Data.csv", 
