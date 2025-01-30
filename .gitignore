@@ -73,5 +73,4 @@ CMI-ASC_transcriptomic_exp.rds
 CMI-MBC_transcriptomic_exp.rds
 CMI-MPC_transcriptomic_exp.rds
 EXCEPTIONAL_RESPONDERS-ER_transcriptomic_exp.rds
-filtered_gene_data.rds
 choltranscriptomicexp.rda
