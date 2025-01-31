@@ -7,7 +7,6 @@ accExp.rda
 ovExp.rda
 choltranscriptomicexp.rda
 MP2PRT-WT_transcriptomic_exp.rds
-Process transcriptomic.R
 REBC-THYR_transcriptomic_exp.rds
 TARGET-CCSK_transcriptomic_exp.rds
 TARGET-NBL_transcriptomic_exp.rds
