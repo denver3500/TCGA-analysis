@@ -7,45 +7,32 @@ library(ggplot2)
 library(gridExtra)
 library(ggsignif)
 
-rds_files <- list.files(pattern = "*.rds") # Looking for created .rds files after downloading data
+rds_files <- list.files("raw_data/", pattern = "*.rds") # Looking for created .rds files after downloading data
 filtered_gene_data <- list() # Store data for later
 primary_normal_data <- list() # Store primary tumor and solid tissue normal data for all projects
-genes_filter <- read.csv("ProteinID.csv") # File with Gene name, UniProt ID, AGID (For Proteomics), and ENSEMBL id
+genes_filter <- read.csv("TCGA-gene_expression/ProteinID.csv") # File with Gene name, UniProt ID, AGID (For Proteomics), and ENSEMBL id
 Ensembl_column <- genes_filter$ENSEMBL
 projects_info <- TCGAbiolinks:::getGDCprojects() # Load information about projects
 
-for (rds_file in rds_files) { # For every .rds file available
+for (rds_file in rds_files) { 
   message(paste("Processing file:", rds_file))
-  
-  transcriptomic_exp <- readRDS(rds_file)   # Load the .rds file
+  transcriptomic_exp <- readRDS(file.path("raw_data", rds_file))
   
   if (!inherits(transcriptomic_exp, "SummarizedExperiment")) { # Check if the loaded object is a SummarizedExperiment
     message(paste("Error: The file", rds_file, "does not contain a SummarizedExperiment object."))
     next
   }
   
-  project_id <- gsub("_transcriptomic_exp.rds", "", rds_file)
+  project_id <- gsub("_transcriptomic_exp.rds", "", rds_file) %>% gsub("raw_data/", "", .) # Extract project ID from the file name
   project_name <- projects_info$name[projects_info$project_id == project_id] #Retrieve project name
   disease_type <- projects_info$disease_type[projects_info$project_id == project_id] #Retrieve disease type
   sanitized_project_name <- gsub("[^A-Za-z0-9]", "_", project_name) # Make sure that project name .png can be saved
   
-  TPM_data <- assay(transcriptomic_exp, 'tpm_unstrand') # Access TPM data
-  TPM_data_df <- as.data.frame(TPM_data)
-  
-  TPM_data_df_col <- TPM_data_df %>% # Create a column with ENSEMBL ids to filter
-    rownames_to_column(var = "ENSEMBL")
-  
-  filtered_TPM_data_df <- TPM_data_df_col %>% # Filter by ENSEMBL id
-    filter(ENSEMBL %in% Ensembl_column)
-  
-  filtered_TPM_data <- filtered_TPM_data_df %>% # Remove ENSEMBL column and return to matrix form
-    column_to_rownames(var = "ENSEMBL") %>%
-    as.matrix()
-  
-  filtered_gene_data[[project_id]] <- filtered_TPM_data
+  TPM_data <- assay(transcriptomic_exp, 'tpm_unstrand')
+  TPM_data <- TPM_data[rownames(TPM_data) %in% genes_filter$ENSEMBL, ]
+  filtered_gene_data[[project_id]] <- TPM_data
   sample_types <- colData(transcriptomic_exp) %>% as.data.frame()
-  
-  sample_types <- sample_types[colnames(filtered_TPM_data), ] # Subset sample_types to include only the samples present in filtered_TPM_data
+  sample_types <- sample_types[colnames(TPM_data), ] # Subset sample_types to include only the samples present in filtered_TPM_data
   
   if ("sample_type" %in% colnames(sample_types)) {
     sample_types$type <- factor(sample_types$sample_type, levels = c("Solid Tissue Normal", "Primary Tumor")) # Change order so Solid Tissue Normal is first
@@ -55,13 +42,12 @@ for (rds_file in rds_files) { # For every .rds file available
   }
   
   project_primary_normal_data <- list()   # Create a list to store primary tumor and solid tissue normal data for the current project
-  
   plot_list <- list()
   
-  for (gene in rownames(filtered_TPM_data)) { # Cycle for each gene
+  for (gene in rownames(TPM_data)) { # Cycle for each gene
     gene_data <- data.frame(
-      sample = colnames(filtered_TPM_data),
-      expression = filtered_TPM_data[gene, ],
+      sample = colnames(TPM_data),
+      expression = TPM_data[gene, ],
       type = sample_types$type
     )
     
@@ -158,14 +144,19 @@ for (rds_file in rds_files) { # For every .rds file available
     plot_height <- num_rows * 5 # 5 inches per row
     
     # Save the combined plot for the current project using the sanitized project name
-    ggsave(filename = paste0(sanitized_project_name, "_genes_plot.png"), plot = combined_plot, width = plot_width, height = plot_height)
+    ggsave(
+      filename = file.path("pictures", "expression_projects", paste0(project_id, "_", sanitized_project_name, "_genes_plot.png")),
+      plot = combined_plot,
+      width = plot_width,
+      height = plot_height
+    )
   } else {
     message(paste("No valid plots for project:", project_id))
   }
 }
 
 # Save the filtered gene data for all projects
-saveRDS(filtered_gene_data, file = "filtered_gene_data.rds")
+saveRDS(filtered_gene_data, file = "raw_data/filtered_gene_data.rds")
 
 # Save the primary tumor and solid tissue normal data for all projects
-saveRDS(primary_normal_data, file = "primary_normal_data.rds")
+saveRDS(primary_normal_data, file = "raw_data/primary_normal_data.rds")
