@@ -28,6 +28,7 @@ for (project_id in project_ids) {
    
     tryCatch({
       GDCdownload(
+        directory = "raw_data/GDCdata",
         query = query,
         files.per.chunk = 100
       )
@@ -37,10 +38,13 @@ for (project_id in project_ids) {
     })
     
     tryCatch({
-      transcriptomic_exp <- GDCprepare(query = query)
+      transcriptomic_exp <- 
+      GDCprepare(
+        directory = "raw_data/GDCdata",
+        query = query)
       
       # Save the data as RDS file
-      saveRDS(transcriptomic_exp, file = paste0(project_id, "_transcriptomic_exp.rds"))
+      saveRDS(transcriptomic_exp, file = file.path("raw_data", paste0(project_id, "_transcriptomic_exp.rds")))
     }, error = function(e) {
       message(paste("Error preparing data for project:", project_id))
       message(e)
