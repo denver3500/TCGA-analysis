@@ -8,7 +8,7 @@ library(ggplot2)
 library(gridExtra)
 library(ggsignif)
 
-primary_normal_data <- readRDS(file.path("raw_data", "primary_normal_data.rds")) # Load the file we got running Process transcriptomic.R
+primary_normal_data <- readRDS(file.path("TCGA-gene_expression", "primary_normal_data.rds")) # Load the file we got running Process transcriptomic.R
 projects_info <- TCGAbiolinks:::getGDCprojects() # Load information about projects
 project_id_to_name <- setNames(projects_info$name, projects_info$project_id) # Create a mapping between project IDs and project names
 
@@ -122,6 +122,19 @@ print(unique_counts)
 
 # Convert the table object to a data frame for easier CSV export
 unique_counts_df <- as.data.frame(unique_counts)
+
+# Rename the default column to project_name
+names(unique_counts_df)[names(unique_counts_df) == "Var1"] <- "project_name"
+
+# Create a mapping data frame (project_id -> project_name) and then invert it
+mapping_df <- data.frame(
+  project_id = names(project_id_to_name),
+  project_name = as.vector(project_id_to_name),
+  stringsAsFactors = FALSE
+)
+
+# Join unique_counts_df to add the project_id column
+unique_counts_df <- merge(unique_counts_df, mapping_df, by = "project_name", all.x = TRUE)
 
 # Sort by frequency (the "Freq" column) in descending order
 unique_counts_df <- unique_counts_df[order(-unique_counts_df$Freq), ]

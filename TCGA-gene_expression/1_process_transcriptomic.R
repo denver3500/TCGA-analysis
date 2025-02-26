@@ -156,7 +156,7 @@ for (rds_file in rds_files) {
 }
 
 # Save the filtered gene data for all projects
-saveRDS(filtered_gene_data, file = "raw_data/filtered_gene_data.rds")
+saveRDS(filtered_gene_data, file = "TCGA-gene_expression/filtered_gene_data.rds")
 
 # Save the primary tumor and solid tissue normal data for all projects
-saveRDS(primary_normal_data, file = "raw_data/primary_normal_data.rds")
+saveRDS(primary_normal_data, file = "TCGA-gene_expression/primary_normal_data.rds")
