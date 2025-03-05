@@ -5,8 +5,7 @@ library(DESeq2)
 library(genefilter)
 
 
-
-data <- readRDS(file.path("raw_data", "TCGA-KIRC_transcriptomic_exp.rds"))
+data <- readRDS(file.path("TCGA-WGCNA/split_datasets","TCGA-KICH_transcriptomic_exp_processed.rds"))
 assayNames(data)[assayNames(data) == "unstranded"] <- "counts"
 
 # Check sample types available (optional, to verify)
