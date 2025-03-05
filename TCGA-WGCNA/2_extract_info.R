@@ -1,51 +1,60 @@
-# Script to create a CSV summary from the saved RDS file
+library(TCGAbiolinks)
 
 # Load the saved RDS file
 rds_file <- file.path("TCGA-WGCNA", "TCGA_gene_expression_analysis_results.rds")
 cat("Loading data from:", rds_file, "\n")
 combined_results <- readRDS(rds_file)
 
+# Get TCGA project information 
+projects_info <- TCGAbiolinks:::getGDCprojects()
+cat("Loaded information for", nrow(projects_info), "projects\n")
+
 # Extract match results
 match_results <- combined_results$match_results
-cat("Extracted match results for", length(match_results), "projects\n")
-
-# Find projects with matches
 projects_with_matches <- names(match_results)[sapply(match_results, function(x) x$has_matches)]
-cat("Found", length(projects_with_matches), "projects with gene matches\n")
 
 if (length(projects_with_matches) > 0) {
-  # Create a data frame to store the information
+  # Create our data frame
   match_summary_df <- data.frame(
-    Project = character(),
-    Match_Count = integer(),
-    Matched_Genes = character(),
+    project_id = gsub("_transcriptomic_exp\\.rds$", "", projects_with_matches),
+    Match_Count = sapply(match_results[projects_with_matches], function(x) x$match_count),
+    Matched_Genes = sapply(match_results[projects_with_matches], function(x) paste(x$matches, collapse = ";")),
     stringsAsFactors = FALSE
   )
   
-  # Fill the data frame with match information
-  for (project in projects_with_matches) {
-    match_info <- match_results[[project]]
+  # Add project names by direct lookup in projects_info
+  match_summary_df$project_name <- sapply(match_summary_df$project_id, function(pid) {
+    # Look for the exact ID
+    matches <- projects_info$name[projects_info$id == pid]
+    if(length(matches) > 0) {
+      return(matches[1])
+    }
     
-    # Add row to data frame
-    match_summary_df <- rbind(match_summary_df, data.frame(
-      Project = project,
-      Match_Count = match_info$match_count,
-      Matched_Genes = paste(match_info$matches, collapse = ";"),
-      stringsAsFactors = FALSE
-    ))
-  }
+    # Try with TCGA- prefix if not found and if not already prefixed
+    if (!grepl("^TCGA-", pid)) {
+      tcga_pid <- paste0("TCGA-", pid)
+      matches <- projects_info$name[projects_info$id == tcga_pid]
+      if(length(matches) > 0) {
+        return(matches[1])
+      }
+    }
+    
+    # Return unknown if no match found
+    return(paste0("Unknown (", pid, ")"))
+  })
   
-  # Sort by number of matches (descending)
-  match_summary_df <- match_summary_df[order(match_summary_df$Match_Count, decreasing = TRUE), ]
+  # Reorder columns to desired format
+  final_df <- match_summary_df[, c("project_name", "Match_Count", "Matched_Genes", "project_id")]
+  
+  # Create output directory
+  if (!dir.exists("analysis")) {
+    dir.create("analysis")
+  }
   
   # Write to CSV
   csv_output_file <- file.path("analysis", "project_gene_variance_matches.csv")
-  write.csv(match_summary_df, file = csv_output_file, row.names = FALSE)
-  cat("Match summary saved to:", csv_output_file, "\n")
+  write.csv(final_df, file = csv_output_file, row.names = FALSE)
   
-  # Print top 5 projects with most matches
-  cat("\nTop 5 projects with most matches:\n")
-  print(head(match_summary_df, 5))
 } else {
-  cat("\nNo projects with matches found.\n")
+  cat("No projects with matches found.\n")
 }
