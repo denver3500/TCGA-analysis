@@ -9,7 +9,7 @@ library(ggsignif)
 
 rds_files <- list.files("raw_data/", pattern = "*.rds") # Looking for created .rds files after downloading data
 filtered_gene_data <- list() # Store data for later
-primary_normal_data <- list() # Store primary tumor and solid tissue normal data for all projects
+primary_normal_data <- list() # Store primary tumor and solid tissue normal data for all projects # nolint: line_length_linter.
 genes_filter <- read.csv("TCGA-gene_expression/ProteinID.csv") # File with Gene name, UniProt ID, AGID (For Proteomics), and ENSEMBL id
 Ensembl_column <- genes_filter$ENSEMBL
 projects_info <- TCGAbiolinks:::getGDCprojects() # Load information about projects
