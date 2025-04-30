@@ -1,0 +1,19 @@
+ [1] "ensembl_base"  "logFC"         "logCPM"        "F"            
+ [5] "PValue"        "FDR"           "gene_ensembl"  "grouping_gene"
+ [9] "project_id"    "gene_name"    
+      Gene_symbol     logFC        FDR_p
+15062      RNU4-2 -8.545856 6.290967e-98
+21403      RN7SL3 -7.260751 3.477233e-89
+15043    SNORA73B -7.080079 7.110198e-97
+15629     SNORD17 -6.165295 5.826298e-87
+18792     SCARNA6 -5.697644 2.177836e-98
+21195      RN7SL1 -5.663479 8.643051e-83
+15959      MUC5AC  4.541334 2.872013e-71
+2220         CHGA  4.421878 1.162031e-45
+10930        KRT1 -3.737776 1.690660e-33
+15487     SNORD94 -3.484918 9.636326e-77
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-8.54586 -0.25666 -0.01511 -0.04667  0.19185  4.54133 
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000000 0.0000000 0.0003108 0.1204997 0.0895074 0.9997806 
+[1] "HSP90AA1_pathfindR_debug"    "HSP90AA1_pathfindR_debug(1)"

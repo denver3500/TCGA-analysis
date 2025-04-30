@@ -1,0 +1,11 @@
+gene_sets,pin_name,success,num_terms,error,runtime_seconds
+KEGG,Biogrid,TRUE,0,None,946.03
+KEGG,STRING,TRUE,0,None,116.53
+KEGG,GeneMania,TRUE,0,None,88.58
+KEGG,IntAct,TRUE,0,None,222.11
+KEGG,KEGG,TRUE,0,None,138.62
+Reactome,Biogrid,TRUE,0,None,1022.59
+Reactome,STRING,TRUE,0,None,113.48
+Reactome,GeneMania,TRUE,0,None,85.63
+Reactome,IntAct,TRUE,0,None,236.15
+Reactome,KEGG,TRUE,0,None,140.64
