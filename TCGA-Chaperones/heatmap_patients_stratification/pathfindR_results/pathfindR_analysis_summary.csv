@@ -1,0 +1,19 @@
+Project,Significant_DEGs,Enriched_Terms,Top_Term,Top_Term_PValue,Runtime_Minutes
+TCGA-BLCA,5900,120,proteasome complex,5.694130359197651e-17,1.5
+TCGA-BRCA,11695,126,phosphatidylinositol biosynthetic process,2.3911717730145204e-20,2.7
+TCGA-CESC,6349,118,mitochondrial respiratory chain complex I,3.464318776151518e-14,1.7
+TCGA-CHOL,0,0,Insufficient DEGs,NA,0
+TCGA-COAD,9973,101,mitochondrial respiratory chain complex I,1.43998495617204e-26,2.3
+TCGA-ESCA,12315,178,MHC class II protein complex,2.685101073597578e-21,2.9
+TCGA-HNSC,6506,141,mitochondrial respiratory chain complex I,6.946813930475621e-39,1.8
+TCGA-KIRC,9836,115,G protein-coupled receptor signaling pathway,8.792872478059969e-16,2.4
+TCGA-KIRP,11009,140,phosphatidylinositol biosynthetic process,1.5004300163358217e-25,2.7
+TCGA-LIHC,8683,157,focal adhesion,7.904349858985225e-23,2.1
+TCGA-LUAD,5147,89,proteasome complex,1.1036294030435102e-14,1.4
+TCGA-LUSC,9281,176,mitochondrial respiratory chain complex I,1.8831113587971385e-21,2.4
+TCGA-PAAD,4674,102,mitochondrial respiratory chain complex I,1.4002862564553512e-9,1.4
+TCGA-PRAD,6258,89,mitochondrial respiratory chain complex I,5.460113486098775e-21,1.7
+TCGA-READ,9858,156,phosphatidylinositol biosynthetic process,6.2477445130434445e-25,2.4
+TCGA-SARC,11600,196,peptidyl-tyrosine phosphorylation,1.253437114974282e-20,2.9
+TCGA-STAD,6949,201,G protein-coupled receptor signaling pathway,2.4234659772286995e-19,2.1
+TCGA-THYM,10349,261,mitochondrial respiratory chain complex I,4.0435660399906245e-40,2.8
