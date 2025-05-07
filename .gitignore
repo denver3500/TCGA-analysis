@@ -121,3 +121,12 @@ TCGA-WGCNA/split_datasets/TCGA-UCEC_transcriptomic_exp_processed.rds
 TCGA-WGCNA/split_datasets/TCGA-UCS_transcriptomic_exp_processed.rds
 TCGA-WGCNA/split_datasets/TCGA-UVM_transcriptomic_exp_processed.rds
 TCGA-WGCNA/TCGA_gene_expression_analysis_results.rds
+TCGA-Chaperones/WGCNA/results/TCGA-BLCA/TCGA-BLCA_TOM-block.1.RData
+TCGA-Chaperones/WGCNA/results/TCGA-BLCA/TCGA-BLCA_TOM-block.2.RData
+TCGA-Chaperones/WGCNA/results/TCGA-BLCA/TCGA-BLCA_TOM-block.3.RData
+TCGA-Chaperones/WGCNA/results/TCGA-BLCA/TCGA-BLCA_TOM-block.4.RData
+TCGA-Chaperones/WGCNA/results/TCGA-BLCA/TCGA-BLCA_TOM-block.5.RData
+TCGA-Chaperones/WGCNA/results/TCGA-BLCA/TCGA-BLCA_TOM-block.6.RData
+**/*.rds
+**/*.RData
+**/*.rda

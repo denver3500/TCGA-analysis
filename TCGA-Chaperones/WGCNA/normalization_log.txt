@@ -1,0 +1,19 @@
+ [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
+ [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
+[13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
+     Project Total_Samples High_Samples Low_Samples Genes_Kept
+1  TCGA-BLCA           209          103         106      32191
+2  TCGA-BRCA           563          278         285      39658
+3  TCGA-CESC           152           76          76      28978
+4  TCGA-CHOL            18            9           9      21934
+5  TCGA-ESCA            92           46          46      35823
+6  TCGA-HNSC           260          130         130      29739
+7  TCGA-KIRC           274          135         139      35101
+8  TCGA-KIRP           144           72          72      28649
+9  TCGA-LIHC           186           93          93      27488
+10 TCGA-LUSC           259          131         128      35310
+11 TCGA-PAAD            88           44          44      26959
+12 TCGA-READ            84           42          42      24710
+13 TCGA-SARC           130           65          65      28692
+14 TCGA-STAD           206          103         103      41336
+15 TCGA-THYM            60           30          30      26989
