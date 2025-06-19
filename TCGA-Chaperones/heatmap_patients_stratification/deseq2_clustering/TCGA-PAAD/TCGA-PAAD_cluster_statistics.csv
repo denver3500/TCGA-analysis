@@ -1,0 +1,3 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-PAAD,1,123,69.1,10.921,10.654,2.104,18.263,2.759
+TCGA-PAAD,2,55,30.9,10.809,10.606,2.104,17.447,2.969

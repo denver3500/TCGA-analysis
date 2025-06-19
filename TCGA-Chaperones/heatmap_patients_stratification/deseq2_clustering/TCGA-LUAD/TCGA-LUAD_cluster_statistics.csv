@@ -1,0 +1,4 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-LUAD,1,370,68.6,10.817,10.561,2.558,17.81,2.885
+TCGA-LUAD,2,157,29.1,11.067,10.958,2.558,18.162,3.172
+TCGA-LUAD,3,12,2.2,9.928,10.076,3.819,15.517,2.533

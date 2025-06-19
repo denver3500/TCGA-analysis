@@ -1,0 +1,3 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-PRAD,1,344,68.7,11.491,11.22,3.286,17.572,2.633
+TCGA-PRAD,2,157,31.3,11.339,11.146,3.286,17.373,2.764

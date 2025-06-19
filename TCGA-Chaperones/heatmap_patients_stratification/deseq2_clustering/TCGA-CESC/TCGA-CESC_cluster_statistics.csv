@@ -1,0 +1,3 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-CESC,1,191,62.8,11.176,11.048,1.97,19.024,3.232
+TCGA-CESC,2,113,37.2,11.549,11.424,1.97,19.704,3.343

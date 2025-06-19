@@ -1,0 +1,3 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-BLCA,1,290,70.4,10.984,10.867,2.16,18.162,3.286
+TCGA-BLCA,2,122,29.6,11.269,10.873,2.16,18.871,2.895

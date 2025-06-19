@@ -1,0 +1,2 @@
+Project,n_patients,n_chaperone_genes,n_total_genes_processed,n_patient_clusters,n_gene_clusters,assay_used
+TCGA-BLCA,412,19,21890,2,5,unstranded

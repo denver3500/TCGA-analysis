@@ -1,0 +1,4 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-COAD,1,205,42.6,10.776,10.764,3.337,16.949,2.881
+TCGA-COAD,2,177,36.8,11.085,10.916,4.411,17.465,2.73
+TCGA-COAD,3,99,20.6,11.159,10.624,6.677,16.635,2.357

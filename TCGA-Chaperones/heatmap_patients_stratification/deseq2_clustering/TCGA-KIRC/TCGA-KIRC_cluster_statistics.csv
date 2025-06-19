@@ -1,0 +1,3 @@
+Project,Cluster,n_patients,pct_of_total,mean_expr,median_expr,min_expr,max_expr,sd_expr
+TCGA-KIRC,1,389,71.9,11.589,11.51,2.696,18.726,3.12
+TCGA-KIRC,2,152,28.1,11.662,11.442,2.696,18.404,2.917
