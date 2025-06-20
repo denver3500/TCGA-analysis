@@ -7,6 +7,7 @@ library(ggraph)
 library(tidygraph)
 library(stringr)
 library(patchwork)
+library(TCGAbiolinks)
 
 # Set working directory
 setwd("/media/windows/BIOINFORMATICS/TCGA/TCGA-analysis/TCGA-Chaperones/heatmap_patients_stratification")
@@ -14,6 +15,37 @@ setwd("/media/windows/BIOINFORMATICS/TCGA/TCGA-analysis/TCGA-Chaperones/heatmap_
 # Read the chaperone gene list for highlighting
 gene_list <- read_csv("../gene_list.csv", show_col_types = FALSE)
 chaperone_genes <- gene_list$Name
+
+# Function to get proper cancer names from TCGA project codes
+get_cancer_name <- function(project_id) {
+  # Extract base project code (remove any cluster information)
+  base_code <- str_extract(project_id, "TCGA-[A-Z]+")
+  
+  # Get project information for better labeling
+  projects_info <- TCGAbiolinks:::getGDCprojects()
+  
+  # Get human-readable cancer type name
+  cancer_type <- ""
+  if (base_code %in% projects_info$project_id) {
+    cancer_type <- projects_info$name[projects_info$project_id == base_code]
+    if (length(cancer_type) == 0 || is.na(cancer_type)) {
+      cancer_type <- base_code
+    }
+  } else {
+    cancer_type <- base_code
+  }
+  
+  # Add cluster information if present
+  cluster_info <- str_extract(project_id, "cluster[0-9]+_vs_cluster[0-9]+")
+  if (!is.na(cluster_info)) {
+    # Make the cluster info more readable
+    readable_cluster <- str_replace_all(cluster_info, "cluster", "Cluster ")
+    readable_cluster <- str_replace(readable_cluster, "_vs_", " vs ")
+    cancer_type <- paste(cancer_type, "-", readable_cluster)
+  }
+  
+  return(cancer_type)
+}
 
 # Function to create tidygraph object from pathfindR data
 create_pathway_graph <- function(pathway_data, limit_pathways = 8) {
@@ -126,13 +158,35 @@ create_pathway_graph <- function(pathway_data, limit_pathways = 8) {
   return(graph)
 }
 
-# Function to create highly readable pathway graphs
+# Function to create highly readable pathway graphs with proper cancer names
 create_readable_pathway_plot <- function(graph, project_name) {
+  # Get proper cancer type name
+  cancer_name <- get_cancer_name(project_name)
+  
   # Extract chaperone genes for later reference
   chaperone_genes_in_graph <- graph %>%
     activate(nodes) %>%
     filter(is_chaperone) %>%
     pull(name)
+  
+  # Create a new aesthetic property to combine chaperone status and regulation
+  graph <- graph %>%
+    activate(nodes) %>%
+    mutate(
+      node_color = case_when(
+        is_chaperone & regulation == "up" ~ "chaperone_up",
+        is_chaperone & regulation == "down" ~ "chaperone_down",
+        is_chaperone & regulation == "both" ~ "chaperone_both",
+        is_chaperone ~ "chaperone_neutral",
+        type == "pathway" ~ "pathway",
+        regulation == "up" ~ "up",
+        regulation == "down" ~ "down",
+        regulation == "both" ~ "both",
+        TRUE ~ "other"
+      ),
+      # Add a border aesthetic for chaperones
+      node_shape = ifelse(is_chaperone, "chaperone", type)
+    )
   
   # Create ggraph plot with careful layout
   pathway_plot <- graph %>%
@@ -149,22 +203,18 @@ create_readable_pathway_plot <- function(graph, project_name) {
     geom_node_point(
       aes(
         size = type,
-        color = case_when(
-          is_chaperone ~ "chaperone",
-          type == "pathway" ~ "pathway",
-          TRUE ~ regulation
-        ),
-        shape = type
+        color = node_color,
+        shape = node_shape
       ),
       show.legend = TRUE
     ) +
-    # Add labels with careful positioning - using fixed size directly instead of aes()
+    # Add labels with careful positioning
     geom_node_text(
       aes(
         label = name,
         fontface = ifelse(is_chaperone, "bold", "plain")
       ),
-      size = 5,  # Use fixed size instead of mapping
+      size = 5,
       repel = TRUE,
       point.padding = unit(1.2, "lines"),
       box.padding = unit(1.5, "lines"),
@@ -174,8 +224,17 @@ create_readable_pathway_plot <- function(graph, project_name) {
     ) +
     # Define custom scales
     scale_shape_manual(
-      values = c(pathway = 19, gene = 19),  # Changed gene shape to circle (19) instead of triangle (17)
-      name = "Node Type"
+      values = c(
+        chaperone = 18,  # Diamond for chaperones 
+        pathway = 19,    # Circle for pathways
+        gene = 16        # Circle for regular genes
+      ),
+      name = "Node Type",
+      labels = c(
+        chaperone = "Chaperone Gene",
+        pathway = "Pathway",
+        gene = "Other Gene"
+      )
     ) +
     scale_size_manual(
       values = c(pathway = 18, gene = 10),
@@ -183,19 +242,27 @@ create_readable_pathway_plot <- function(graph, project_name) {
     ) +
     scale_color_manual(
       values = c(
-        "chaperone" = "#9932CC",   # Changed to purple for chaperones
-        "pathway" = "#4682B4",     # Steel blue for pathways
-        "up" = "#32CD32",          # Green for up-regulated genes
-        "down" = "#E41A1C",        # Red for down-regulated genes (changed from purple)
-        "both" = "#FFD700"         # Gold for genes regulated both ways
+        "chaperone_up" = "#9370DB",      # Light purple for upregulated chaperones
+        "chaperone_down" = "#800080",    # Dark purple for downregulated chaperones
+        "chaperone_both" = "#BA55D3",    # Medium purple for bi-directional chaperones
+        "chaperone_neutral" = "#9932CC", # Default purple for neutral chaperones
+        "pathway" = "#4682B4",           # Steel blue for pathways
+        "up" = "#32CD32",                # Green for up-regulated genes
+        "down" = "#E41A1C",              # Red for down-regulated genes
+        "both" = "#FFD700",              # Gold for genes regulated both ways
+        "other" = "#A9A9A9"              # Gray for undefined
       ),
-      name = "Node Type",
+      name = "Gene Type",
       labels = c(
-        "chaperone" = "Chaperone Gene",
+        "chaperone_up" = "Chaperone (Up-regulated)",
+        "chaperone_down" = "Chaperone (Down-regulated)",
+        "chaperone_both" = "Chaperone (Bi-directional)",
+        "chaperone_neutral" = "Chaperone (Neutral)",
         "pathway" = "Pathway",
         "up" = "Up-regulated Gene",
         "down" = "Down-regulated Gene",
-        "both" = "Bi-directional Gene"
+        "both" = "Bi-directional Gene",
+        "other" = "Other Gene"
       ),
       na.value = "gray50"
     ) +
@@ -209,9 +276,9 @@ create_readable_pathway_plot <- function(graph, project_name) {
     ) +
     # Additional theme elements
     labs(
-      title = paste("Chaperone-Related Pathways:", project_name),
+      title = paste("Chaperone-Related Pathways:", cancer_name),
       subtitle = paste0("Chaperone genes: ", paste(chaperone_genes_in_graph, collapse = ", ")),
-      caption = "Purple: chaperone genes, Blue: pathways, Green: up-regulated, Red: down-regulated"
+      caption = "Purple: chaperones (light: up, dark: down), Blue: pathways, Green: up-regulated, Red: down-regulated"
     ) +
     theme_graph(base_family = "sans", base_size = 16) +
     theme(
@@ -229,6 +296,9 @@ create_readable_pathway_plot <- function(graph, project_name) {
 
 # Function to create a simplified plot focusing only on chaperones
 create_chaperone_focused_plot <- function(graph, project_name) {
+  # Get proper cancer type name
+  cancer_name <- get_cancer_name(project_name)
+  
   # Extract chaperone nodes and connected pathway nodes
   chaperone_nodes <- graph %>%
     activate(nodes) %>%
@@ -258,20 +328,33 @@ create_chaperone_focused_plot <- function(graph, project_name) {
     activate(edges) %>%
     filter(from %in% subgraph_nodes & to %in% subgraph_nodes)
   
-  # Create simplified plot with a manual layout
-  set.seed(42) # For reproducible layout
-  
-  # Create a text size variable in graph for use with filter
+  # Create a new aesthetic property to combine chaperone status and regulation
   focused_graph <- focused_graph %>%
     activate(nodes) %>%
     mutate(
-      node_text_size = case_when(
-        is_chaperone ~ 8,
-        type == "pathway" ~ 10,
-        TRUE ~ 0
+      node_color = case_when(
+        is_chaperone & regulation == "up" ~ "chaperone_up",
+        is_chaperone & regulation == "down" ~ "chaperone_down",
+        is_chaperone & regulation == "both" ~ "chaperone_both",
+        is_chaperone ~ "chaperone_neutral",
+        type == "pathway" ~ "pathway",
+        TRUE ~ "other"
       ),
-      text_to_display = ifelse(node_text_size > 0, name, "")
+      # Create text display variable for labels - add regulation indicators
+      text_to_display = case_when(
+        is_chaperone ~ paste0(name, " (", 
+                            ifelse(regulation == "up", "↑", 
+                                  ifelse(regulation == "down", "↓", 
+                                        ifelse(regulation == "both", "↕", ""))), ")"),
+        type == "pathway" ~ name,
+        TRUE ~ ""
+      ),
+      # Add a border aesthetic for chaperones
+      node_shape = ifelse(is_chaperone, "chaperone", type)
     )
+  
+  # Create simplified plot with a manual layout
+  set.seed(42) # For reproducible layout
   
   chap_plot <- focused_graph %>%
     ggraph(layout = "kk") +
@@ -283,16 +366,12 @@ create_chaperone_focused_plot <- function(graph, project_name) {
     geom_node_point(
       aes(
         size = type,
-        color = case_when(
-          is_chaperone ~ "chaperone",
-          type == "pathway" ~ "pathway",
-          TRUE ~ "other"
-        ),
-        shape = type
+        color = node_color,
+        shape = node_shape
       ),
       show.legend = TRUE
     ) +
-    # Only show labels for chaperones and pathways
+    # Only show labels for chaperones and pathways with regulation indicators
     geom_node_text(
       aes(
         label = text_to_display,
@@ -305,8 +384,12 @@ create_chaperone_focused_plot <- function(graph, project_name) {
       force = 15
     ) +
     scale_shape_manual(
-      values = c(pathway = 19, gene = 19),  # Changed to circles for genes as well
-      name = "Type"
+      values = c(
+        chaperone = 18,  # Diamond for chaperones 
+        pathway = 19,    # Circle for pathways
+        gene = 16        # Circle for regular genes
+      ),
+      name = "Node Type"
     ) +
     scale_size_manual(
       values = c(pathway = 20, gene = 15),
@@ -314,11 +397,22 @@ create_chaperone_focused_plot <- function(graph, project_name) {
     ) +
     scale_color_manual(
       values = c(
-        "chaperone" = "#9932CC",   # Changed to purple for chaperones
-        "pathway" = "#4682B4",     # Blue for pathways
-        "other" = "#A9A9A9"        # Gray for other genes
+        "chaperone_up" = "#9370DB",      # Light purple for upregulated chaperones
+        "chaperone_down" = "#800080",    # Dark purple for downregulated chaperones
+        "chaperone_both" = "#BA55D3",    # Medium purple for bi-directional chaperones
+        "chaperone_neutral" = "#9932CC", # Default purple for neutral chaperones
+        "pathway" = "#4682B4",           # Blue for pathways
+        "other" = "#A9A9A9"              # Gray for other genes
       ),
-      name = "Type"
+      name = "Gene Type",
+      labels = c(
+        "chaperone_up" = "Chaperone (Up-regulated)",
+        "chaperone_down" = "Chaperone (Down-regulated)",
+        "chaperone_both" = "Chaperone (Bi-directional)",
+        "chaperone_neutral" = "Chaperone (Neutral)",
+        "pathway" = "Pathway",
+        "other" = "Other Gene"
+      )
     ) +
     # Edge color scale
     scale_edge_color_manual(
@@ -329,8 +423,9 @@ create_chaperone_focused_plot <- function(graph, project_name) {
       name = "Regulation"
     ) +
     labs(
-      title = paste("Chaperone-Pathway Interactions:", project_name),
-      subtitle = paste("Focused on chaperone genes and their associated pathways")
+      title = paste("Chaperone-Pathway Interactions:", cancer_name),
+      subtitle = paste("Purple diamonds: chaperones (↑:up, ↓:down), Blue circles: pathways"),
+      caption = "Chaperone regulation indicated by arrow and color intensity"
     ) +
     theme_graph(base_family = "sans", base_size = 18) +
     theme(
@@ -374,9 +469,10 @@ process_pathfindR_results <- function() {
   for (csv_file in csv_files) {
     # Extract project name
     project_name <- basename(csv_file) %>% str_remove("_chaperone_filtered\\.csv$")
+    cancer_name <- get_cancer_name(project_name) # Get proper cancer type name
     
     cat("\n-----------------------------\n")
-    cat("Processing:", project_name, "\n")
+    cat("Processing:", project_name, "->", cancer_name, "\n") # Show both names
     
     # Create project directory
     project_dir <- file.path(output_dir, project_name)
@@ -463,4 +559,6 @@ cat("\nVisualization complete!\n")
 cat("Two types of plots were created for each project:\n")
 cat("1. Full network with all genes and pathways\n")
 cat("2. Chaperone-focused network showing only chaperones and their pathways\n")
-cat("With updated colors: green (upregulated), red (downregulated), purple (chaperones)\n")
+cat("With updated colors for regulation: green (up), red (down), purple shades (chaperones)\n")
+cat("Chaperones now show regulation status with both shape (diamond) and color intensity\n")
+cat("And proper cancer type names instead of TCGA codes\n")
