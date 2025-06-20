@@ -1,0 +1,2 @@
+Project,Comparison,Cluster1,Cluster2,Cluster1_Samples,Cluster2_Samples,Filtered_Genes,Total_DEGs,Up_in_Cluster2,Down_in_Cluster2
+TCGA-LIHC,Cluster2_vs_Cluster1,1,2,162,209,18880,9209,4519,4690

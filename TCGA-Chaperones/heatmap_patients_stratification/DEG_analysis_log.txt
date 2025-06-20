@@ -1,132 +1,107 @@
  [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
  [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
 [13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
-     Project High_Samples Low_Samples Filtered_Genes Total_DEGs Up_in_High
-1  TCGA-BLCA          103         106          20204       5900       3719
-2  TCGA-BRCA          278         285          21441      11695       6392
-3  TCGA-CESC           76          76          20218       6349       3840
-4  TCGA-CHOL            9           9          19367          0          0
-5  TCGA-COAD          121         140          19954       9973       5554
-6  TCGA-ESCA           46          46          25133      12315       6347
-7  TCGA-HNSC          130         130          19657       6506       4071
-8  TCGA-KIRC          135         139          21797       9836       6253
-9  TCGA-KIRP           72          72          20424      11009       6126
-10 TCGA-LIHC           93          93          18261       8683       4241
-11 TCGA-LUAD          147         154          20953       5147       2948
-12 TCGA-LUSC          131         128          21785       9281       4581
-13 TCGA-PAAD           44          44          21007       4674       2914
-14 TCGA-PRAD          127         129          20916       6258       4266
-15 TCGA-READ           42          42          18554       9858       4903
-16 TCGA-SARC           65          65          19664      11600       5889
-17 TCGA-STAD          103         103          24556       6949       4080
-18 TCGA-THYM           30          30          21290      10349       4914
-   Down_in_High
-1          2181
-2          5303
-3          2509
-4             0
-5          4419
-6          5968
-7          2435
-8          3583
-9          4883
-10         4442
-11         2199
-12         4700
-13         1760
-14         1992
-15         4955
-16         5711
-17         2869
-18         5435
-     0
-5          4419
-6          5968
-7          2435
-8          3583
-9          4883
-10         4442
-11         2199
-12         4700
-13         1760
-14         1992
-15         4955
-16         5711
-17         2869
-18         5435
-Found 18 DEG files to process
- [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
- [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
-[13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
 
-===== Processing TCGA-BLCA =====
-Reading DEG file: TCGA-BLCA_high_vs_low_DEG.csv 
-Found 18 DEG files to process
- [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
- [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
-[13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
+  1   2 
+290 122 
 
-===== Processing TCGA-BLCA =====
-Reading DEG file: TCGA-BLCA_high_vs_low_DEG.csv 
-Found 18 DEG files to process
- [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
- [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
-[13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
+  1   2 
+807 304 
 
-===== Processing TCGA-BLCA =====
-Reading DEG file: TCGA-BLCA_high_vs_low_DEG.csv 
-Available columns: ensembl_base, gene_name, gene_ensembl, logFC, logCPM, F, PValue, FDR 
-Number of significant DEGs (FDR < 0.05): 5900 
-Running pathfindR analysis...
-Error in pathfindR analysis for TCGA-BLCA : unused arguments (visualize_enriched_terms = TRUE, plot_term_gene_heatmap = TRUE) 
-Error processing file TCGA-BLCA_high_vs_low_DEG.csv : object 'n_terms' not found 
+  1   2 
+191 113 
 
-===== Processing TCGA-BRCA =====
-Reading DEG file: TCGA-BRCA_high_vs_low_DEG.csv 
-Available columns: ensembl_base, gene_name, gene_ensembl, logFC, logCPM, F, PValue, FDR 
-Number of significant DEGs (FDR < 0.05): 11695 
-Running pathfindR analysis...
-Found 18 DEG files to process
- [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
- [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
-[13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
+ 1  2 
+24 11 
 
-===== Processing TCGA-BLCA =====
-Reading DEG file: TCGA-BLCA_high_vs_low_DEG.csv 
-Available columns: ensembl_base, gene_name, gene_ensembl, logFC, logCPM, F, PValue, FDR 
-Number of significant DEGs (FDR < 0.05): 5900 
-Running pathfindR analysis...
-1/3        
-2/3 [setup]
-3/3        
-/usr/bin/pandoc +RTS -K512m -RTS results.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output pandocd28ad6295eadd.html --lua-filter /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpWEZdSP/rmarkdown-strd28ad72610f59.html 
-1/4        
-2/4 [setup]
-3/4        
-4/4 [table]
-/usr/bin/pandoc +RTS -K512m -RTS enriched_terms.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output pandocd28ad35ef9fd.html --lua-filter /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpWEZdSP/rmarkdown-strd28ad313fb1d4.html 
-1/6                              
-2/6 [setup]                      
-3/6                              
-4/6 [converted_tbl, table1]      
-5/6                              
-6/6 [gene_wo_interaction, table2]
-/usr/bin/pandoc +RTS -K512m -RTS conversion_table.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output pandocd28ad62da29e3.html --lua-filter /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /home/gets/R/x86_64-pc-linux-gnu-library/4.4/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpWEZdSP/rmarkdown-strd28ad4849006d.html 
-Error in pathfindR analysis for TCGA-BLCA : replacement has length zero 
-Error processing file TCGA-BLCA_high_vs_low_DEG.csv : object 'top_term_pval' not found 
+  1   2   3 
+205 177  99 
 
-===== Processing TCGA-BRCA =====
-Reading DEG file: TCGA-BRCA_high_vs_low_DEG.csv 
-Available columns: ensembl_base, gene_name, gene_ensembl, logFC, logCPM, F, PValue, FDR 
-Number of significant DEGs (FDR < 0.05): 11695 
-Running pathfindR analysis...
-Found 18 DEG files to process
- [1] "TCGA-BLCA" "TCGA-BRCA" "TCGA-CESC" "TCGA-CHOL" "TCGA-COAD" "TCGA-ESCA"
- [7] "TCGA-HNSC" "TCGA-KIRC" "TCGA-KIRP" "TCGA-LIHC" "TCGA-LUAD" "TCGA-LUSC"
-[13] "TCGA-PAAD" "TCGA-PRAD" "TCGA-READ" "TCGA-SARC" "TCGA-STAD" "TCGA-THYM"
+  1   2 
+106  78 
 
-===== Processing TCGA-BLCA =====
-Reading DEG file: TCGA-BLCA_high_vs_low_DEG.csv 
-Available columns: ensembl_base, gene_name, gene_ensembl, logFC, logCPM, F, PValue, FDR 
-Number of significant DEGs (FDR < 0.05): 5900 
-Running pathfindR analysis...
+  1   2 
+123 397 
+
+  1   2 
+389 152 
+
+  1   2 
+273  17 
+
+  1   2 
+162 209 
+
+  1   2   3 
+370 157  12 
+
+  1   2 
+334 177 
+
+  1   2 
+123  55 
+
+  1   2 
+344 157 
+
+  1   2 
+148  18 
+
+  1   2 
+178  81 
+
+  1   2 
+148 264 
+
+ 1  2 
+52 68 
+     Project           Comparison Cluster1 Cluster2 Cluster1_Samples
+1  TCGA-BLCA Cluster2_vs_Cluster1        1        2              292
+2  TCGA-BRCA Cluster2_vs_Cluster1        1        2              808
+3  TCGA-CESC Cluster2_vs_Cluster1        1        2              191
+4  TCGA-CHOL Cluster2_vs_Cluster1        1        2               24
+5  TCGA-COAD Cluster2_vs_Cluster1        1        2              213
+6  TCGA-COAD Cluster3_vs_Cluster1        1        3              213
+7  TCGA-COAD Cluster3_vs_Cluster2        2        3              182
+8  TCGA-ESCA Cluster2_vs_Cluster1        1        2              106
+9  TCGA-HNSC Cluster2_vs_Cluster1        1        2              123
+10 TCGA-KIRC Cluster2_vs_Cluster1        1        2              389
+11 TCGA-KIRP Cluster2_vs_Cluster1        1        2              273
+12 TCGA-LIHC Cluster2_vs_Cluster1        1        2              162
+13 TCGA-LUAD Cluster2_vs_Cluster1        1        2              379
+14 TCGA-LUAD Cluster3_vs_Cluster1        1        3              379
+15 TCGA-LUAD Cluster3_vs_Cluster2        2        3              160
+16 TCGA-LUSC Cluster2_vs_Cluster1        1        2              334
+17 TCGA-PAAD Cluster2_vs_Cluster1        1        2              123
+18 TCGA-PRAD Cluster2_vs_Cluster1        1        2              344
+19 TCGA-READ Cluster2_vs_Cluster1        1        2              148
+20 TCGA-SARC Cluster2_vs_Cluster1        1        2              178
+21 TCGA-STAD Cluster2_vs_Cluster1        1        2              148
+22 TCGA-THYM Cluster2_vs_Cluster1        1        2               52
+   Cluster2_Samples Filtered_Genes Total_DEGs Up_in_Cluster2 Down_in_Cluster2
+1               123          22110      12213           3709             8504
+2               305          23513      16155           7357             8798
+3               113          21352       7176           3302             3874
+4                11          20814        109             94               15
+5               182          19076      11575           5292             6283
+6               106          21191      10891           4278             6613
+7               106          19345      11682           5857             5825
+8                78          26463      15655           8500             7155
+9               397          22327      11074           7696             3378
+10              152          23782      12369           7178             5191
+11               17          26594      11441           6388             5053
+12              209          18880       9209           4519             4690
+13              160          23044      15184           9519             5665
+14               35          30253      21089          11906             9183
+15               35          26227      18231           8636             9595
+16              177          23280      15063           8224             6839
+17               55          22456      12206           7377             4829
+18              157          22277      15543           9706             5837
+19               18          23437       4846           2752             2094
+20               81          21672      15311           6789             8522
+21              264          26477      15958           9231             6727
+22               68          21880      11263           4899             6364
+     23437       4846           2752             2094
+20               81          21672      15311           6789             8522
+21              264          26477      15958           9231             6727
+22               68          21880      11263           4899             6364

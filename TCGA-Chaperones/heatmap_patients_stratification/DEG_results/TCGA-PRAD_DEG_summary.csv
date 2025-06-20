@@ -1,0 +1,2 @@
+Project,Comparison,Cluster1,Cluster2,Cluster1_Samples,Cluster2_Samples,Filtered_Genes,Total_DEGs,Up_in_Cluster2,Down_in_Cluster2
+TCGA-PRAD,Cluster2_vs_Cluster1,1,2,344,157,22277,15543,9706,5837

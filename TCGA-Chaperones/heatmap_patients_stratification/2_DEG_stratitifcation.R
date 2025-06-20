@@ -5,10 +5,13 @@ library(edgeR)
 library(stringr)
 library(tidyr)
 library(ggplot2)
+library(purrr)
+library(RColorBrewer)
+library(pheatmap)
 
 # Define file paths
 rds_dir <- "TCGA-Chaperones/rds"
-expr_dir <- "TCGA-Chaperones/heatmap_patients_stratification/heatmaps"
+cluster_dir <- "TCGA-Chaperones/heatmap_patients_stratification/deseq2_clustering" 
 output_dir <- "TCGA-Chaperones/heatmap_patients_stratification/DEG_results"
 log_file <- "TCGA-Chaperones/heatmap_patients_stratification/DEG_analysis_log.txt"
 
@@ -24,43 +27,47 @@ extract_base_ensembl <- function(ensembl_id) {
   sapply(strsplit(ensembl_id, "\\."), function(x) x[1])
 }
 
-# Function to perform DEG analysis for a project
-analyze_project <- function(project_id) {
+# Function to perform DEG analysis for a project using clusters
+analyze_project_clusters <- function(project_id) {
   message("\n====== Processing ", project_id, " ======")
   
-  # File paths
-  expr_file <- file.path(expr_dir, paste0(project_id, "_chaperone_expression_data.csv"))
+  # File paths for cluster assignments
+  cluster_file <- file.path(cluster_dir, project_id, paste0(project_id, "_patient_clusters.csv"))
   
-  # Check if expression file exists
-  if (!file.exists(expr_file)) {
-    message("  Expression file not found for ", project_id, ". Skipping.")
+  # Check if cluster file exists
+  if (!file.exists(cluster_file)) {
+    message("  Cluster file not found for ", project_id, ". Skipping.")
     return(NULL)
   }
   
-  # Read chaperone expression data
-  message("  Loading chaperone expression data")
-  expr_data <- read_csv(expr_file, show_col_types = FALSE)
+  # Read cluster assignments
+  message("  Loading cluster assignments")
+  cluster_data <- read_csv(cluster_file, show_col_types = FALSE)
   
-  # Transpose to get patients as rows and genes as columns
-  gene_names <- expr_data$Gene_Name
-  patient_ids <- colnames(expr_data)[3:ncol(expr_data)]
-  expr_matrix <- t(as.matrix(expr_data[, 3:ncol(expr_data)]))
-  colnames(expr_matrix) <- gene_names
-  rownames(expr_matrix) <- patient_ids
+  # Check and ensure Patient_Cluster is properly formatted
+  if ("Patient_Cluster" %in% colnames(cluster_data)) {
+    # Convert to character if needed
+    if (is.list(cluster_data$Patient_Cluster)) {
+      message("  Converting Patient_Cluster from list to character vector")
+      cluster_data$Patient_Cluster <- as.character(unlist(cluster_data$Patient_Cluster))
+    } else {
+      cluster_data$Patient_Cluster <- as.character(cluster_data$Patient_Cluster)
+    }
+  } else {
+    message("  Error: Patient_Cluster column not found in cluster data")
+    return(NULL)
+  }
   
-  # Calculate mean expression per patient
-  patient_mean_expr <- rowMeans(expr_matrix, na.rm = TRUE)
+  # Get unique clusters
+  unique_clusters <- sort(unique(cluster_data$Patient_Cluster))
+  n_clusters <- length(unique_clusters)
   
-  # Sort patients by mean expression
-  sorted_patients <- names(sort(patient_mean_expr, decreasing = TRUE))
-  n_patients <- length(sorted_patients)
+  message("  Found ", n_clusters, " patient clusters")
   
-  # Define high and low groups (top 25% and bottom 25%)
-  high_patients <- sorted_patients[1:round(n_patients * 0.25)]
-  low_patients <- sorted_patients[(round(n_patients * 0.75) + 1):n_patients]
-  
-  message("  Identified ", length(high_patients), " patients with high chaperone expression")
-  message("  Identified ", length(low_patients), " patients with low chaperone expression")
+  # Show cluster distribution using base R for robustness
+  cluster_counts <- table(cluster_data$Patient_Cluster)
+  message("  Cluster distribution:")
+  print(cluster_counts)
   
   # Find and load the RDS file for this project
   rds_files <- list.files(rds_dir, pattern = paste0("^", project_id, "_.*\\.rds$"), full.names = TRUE)
@@ -94,192 +101,246 @@ analyze_project <- function(project_id) {
     return(NULL)
   }
   
-  # Get TCGA barcodes from column names
+  # Get patient information
   tcga_barcodes <- colnames(count_data)
-  short_barcodes <- substr(tcga_barcodes, 1, 15)  # Use the first 15 characters for a more specific match
+  short_barcodes <- substr(tcga_barcodes, 1, 15)  # Use the first 15 characters for matching
   
-  # Match barcodes between expression data and RDS data
-  high_indices <- which(short_barcodes %in% substr(high_patients, 1, 15))
-  low_indices <- which(short_barcodes %in% substr(low_patients, 1, 15))
+  # Create a mapping between patient IDs in cluster data and RDS data
+  cluster_data$short_barcode <- substr(cluster_data$Patient_ID, 1, 15)
   
-  if (length(high_indices) < 3 || length(low_indices) < 3) {
-    message("  Not enough samples matched between RDS and expression data. Skipping.")
-    message("  Matched samples: ", length(high_indices), " high, ", length(low_indices), " low")
-    return(NULL)
-  }
+  # Generate all pairwise combinations of clusters
+  cluster_pairs <- combn(unique_clusters, 2, simplify = FALSE)
+  message("  Will perform ", length(cluster_pairs), " pairwise cluster comparisons")
   
-  message("  Matched ", length(high_indices), " high expression samples and ", 
-          length(low_indices), " low expression samples")
+  # Initialize results list
+  pairwise_results <- list()
   
-  # Create DGEList object
-  sample_indices <- c(high_indices, low_indices)
-  group <- factor(c(rep("High", length(high_indices)), 
-                   rep("Low", length(low_indices))), 
-                 levels = c("High", "Low"))
-  
-  # Create a DGEList object
-  dge <- DGEList(counts = count_data[, sample_indices], 
-                 group = group)
-  
-  # Filter low expressed genes
-  message("  Filtering lowly expressed genes")
-  keep <- filterByExpr(dge)
-  message("  Keeping ", sum(keep), " out of ", nrow(dge), " genes")
-  dge <- dge[keep, , keep.lib.sizes = FALSE]
-  
-  # Normalize the data
-  message("  Normalizing data")
-  dge <- calcNormFactors(dge)
-  
-  # Design matrix
-  design <- model.matrix(~group)
-  
-  # Estimate dispersion
-  message("  Estimating dispersion")
-  dge <- estimateDisp(dge, design)
-  
-  # Fit the model
-  message("  Fitting GLM")
-  fit <- glmQLFit(dge, design)
-  
-  # Test for differential expression
-  message("  Testing for differential expression")
-  qlf <- glmQLFTest(fit, coef = 2)  # High vs. Low
-  
-  # Extract results
-  message("  Extracting DEG results")
-  res <- topTags(qlf, n = Inf)
-  results_df <- as.data.frame(res)
-  results_df$gene_ensembl <- rownames(results_df)
-  
-  # Add gene names if available in the SummarizedExperiment object
+  # Perform pairwise DEG analysis
+  for (pair_idx in seq_along(cluster_pairs)) {
+    cluster1 <- cluster_pairs[[pair_idx]][1]
+    cluster2 <- cluster_pairs[[pair_idx]][2]
+    
+    message("\n  === Analyzing Cluster ", cluster1, " vs Cluster ", cluster2, " ===")
+    
+    # Get patients in each cluster
+    cluster1_patients <- cluster_data$short_barcode[cluster_data$Patient_Cluster == cluster1]
+    cluster2_patients <- cluster_data$short_barcode[cluster_data$Patient_Cluster == cluster2]
+    
+    # Match patients to RDS data indices
+    cluster1_indices <- which(short_barcodes %in% cluster1_patients)
+    cluster2_indices <- which(short_barcodes %in% cluster2_patients)
+    
+    # Check if we have enough samples
+    if (length(cluster1_indices) < 3 || length(cluster2_indices) < 3) {
+      message("  Not enough samples matched for clusters ", cluster1, " and ", cluster2, ". Skipping.")
+      message("  Matched samples: ", length(cluster1_indices), " in cluster ", cluster1, 
+              ", ", length(cluster2_indices), " in cluster ", cluster2)
+      next
+    }
+    
+    message("  Matched ", length(cluster1_indices), " samples in cluster ", cluster1, 
+            " and ", length(cluster2_indices), " samples in cluster ", cluster2)
+    
+    # Create DGEList object
+    sample_indices <- c(cluster1_indices, cluster2_indices)
+    group <- factor(c(rep(paste0("Cluster", cluster1), length(cluster1_indices)), 
+                     rep(paste0("Cluster", cluster2), length(cluster2_indices))), 
+                   levels = c(paste0("Cluster", cluster1), paste0("Cluster", cluster2)))
+    
+    # Create a DGEList object
+    dge <- DGEList(counts = count_data[, sample_indices], group = group)
+    
+    # Filter low expressed genes
+    message("  Filtering lowly expressed genes")
+    keep <- filterByExpr(dge)
+    message("  Keeping ", sum(keep), " out of ", nrow(dge), " genes")
+    dge <- dge[keep, , keep.lib.sizes = FALSE]
+    
+    # Normalize the data
+    message("  Normalizing data")
+    dge <- calcNormFactors(dge)
+    
+    # Design matrix
+    design <- model.matrix(~group)
+    colnames(design) <- c("Intercept", paste0("Cluster", cluster2, "vsCluster", cluster1))
+    
+    # Estimate dispersion
+    message("  Estimating dispersion")
+    dge <- estimateDisp(dge, design)
+    
+    # Fit the model
+    message("  Fitting GLM")
+    fit <- glmQLFit(dge, design)
+    
+    # Test for differential expression
+    message("  Testing for differential expression")
+    qlf <- glmQLFTest(fit, coef = 2)  # Second cluster vs first cluster
+    
+    # Extract results
+    message("  Extracting DEG results")
+    res <- topTags(qlf, n = Inf)
+    results_df <- as.data.frame(res)
+    results_df$gene_ensembl <- rownames(results_df)
+    
+    # Add gene names if available in the SummarizedExperiment object
     if (is(se_object, "SummarizedExperiment") && is(try(rowRanges(se_object), silent = TRUE), "GRanges")) {
-    gene_info <- as.data.frame(mcols(rowRanges(se_object)))
+      gene_info <- as.data.frame(mcols(rowRanges(se_object)))
+      
+      # Find column with gene names
+      potential_name_cols <- c("gene_name", "external_gene_name", "symbol", "gene_symbol")
+      name_col <- potential_name_cols[potential_name_cols %in% colnames(gene_info)][1]
+      
+      if (!is.na(name_col)) {
+        # Create mapping from ENSEMBL ID to gene name
+        ensembl_to_gene_map <- data.frame(
+          ensembl_id = rownames(se_object),
+          gene_name = gene_info[[name_col]],
+          stringsAsFactors = FALSE
+        )
+        
+        # Extract base ENSEMBL IDs
+        ensembl_to_gene_map$ensembl_base <- extract_base_ensembl(ensembl_to_gene_map$ensembl_id)
+        results_df$ensembl_base <- extract_base_ensembl(results_df$gene_ensembl)
+        
+        # Merge gene names to results
+        results_df <- merge(results_df, 
+                           ensembl_to_gene_map[, c("ensembl_base", "gene_name")], 
+                           by = "ensembl_base", all.x = TRUE)
+      }
+    }
     
-    # Find column with gene names
-    potential_name_cols <- c("gene_name", "external_gene_name", "symbol", "gene_symbol")
-    name_col <- potential_name_cols[potential_name_cols %in% colnames(gene_info)][1]
+    # If gene names not available, add an ensembl_base column
+    if (!"gene_name" %in% colnames(results_df) && !"ensembl_base" %in% colnames(results_df)) {
+      results_df$ensembl_base <- extract_base_ensembl(results_df$gene_ensembl)
+    }
     
-    if (!is.na(name_col)) {
-      # Create mapping from ENSEMBL ID to gene name
-      ensembl_to_gene_map <- data.frame(
-        ensembl_id = rownames(se_object),
-        gene_name = gene_info[[name_col]],
+    # Reorder columns to put gene names first if they exist
+    if ("gene_name" %in% colnames(results_df)) {
+      results_df <- results_df %>%
+        select(ensembl_base, gene_name, gene_ensembl, everything()) %>%
+        arrange(PValue)
+    } else {
+      results_df <- results_df %>%
+        select(ensembl_base, gene_ensembl, everything()) %>%
+        arrange(PValue)
+    }
+    
+    # Add comparison information
+    results_df$comparison <- paste0("Cluster", cluster2, "_vs_Cluster", cluster1)
+    results_df$cluster1 <- cluster1
+    results_df$cluster2 <- cluster2
+    
+    # Save results
+    comparison_name <- paste0("cluster", cluster2, "_vs_cluster", cluster1)
+    results_file <- file.path(output_dir, paste0(project_id, "_", comparison_name, "_DEG.csv"))
+    write_csv(results_df, results_file)
+    
+    # Create summary of results
+    up_genes <- sum(results_df$logFC > 0 & results_df$FDR < 0.05)
+    down_genes <- sum(results_df$logFC < 0 & results_df$FDR < 0.05)
+    total_sig <- sum(results_df$FDR < 0.05)
+    
+    message("  DEG analysis complete. Results saved to ", results_file)
+    message("  Summary: ", total_sig, " significant genes (FDR < 0.05)")
+    message("           ", up_genes, " up-regulated in cluster ", cluster2)
+    message("           ", down_genes, " down-regulated in cluster ", cluster2)
+    
+    # Create MA plot if there are significant DEGs
+    if (total_sig > 0) {
+      plot_file <- file.path(output_dir, paste0(project_id, "_", comparison_name, "_MAplot.pdf"))
+      pdf(plot_file, width = 10, height = 8)
+      
+      # Create data frame for plotting
+      plot_data <- results_df %>%
+        mutate(significance = case_when(
+          FDR < 0.01 ~ "FDR < 0.01",
+          FDR < 0.05 ~ "FDR < 0.05",
+          TRUE ~ "Not significant"
+        ),
+        significance = factor(significance, levels = c("FDR < 0.01", "FDR < 0.05", "Not significant")))
+      
+      # Create MA plot
+      p <- ggplot(plot_data, aes(x = logCPM, y = logFC, color = significance)) +
+        geom_point(size = 0.8, alpha = 0.7) +
+        scale_color_manual(values = c("FDR < 0.01" = "red", "FDR < 0.05" = "orange", "Not significant" = "grey")) +
+        labs(title = paste(project_id, "- Cluster", cluster2, "vs Cluster", cluster1),
+             subtitle = paste("Up:", up_genes, "Down:", down_genes, "Total Sig:", total_sig),
+             x = "Average Expression (logCPM)",
+             y = "Log Fold Change (Cluster 2 vs Cluster 1)") +
+        theme_bw() +
+        theme(legend.position = "bottom")
+      
+      print(p)
+      dev.off()
+      message("  MA plot saved to ", plot_file)
+      
+      # Also create a volcano plot
+      plot_file <- file.path(output_dir, paste0(project_id, "_", comparison_name, "_volcano.pdf"))
+      pdf(plot_file, width = 10, height = 8)
+      
+      # Create volcano plot
+      p <- ggplot(plot_data, aes(x = logFC, y = -log10(FDR), color = significance)) +
+        geom_point(size = 0.8, alpha = 0.7) +
+        scale_color_manual(values = c("FDR < 0.01" = "red", "FDR < 0.05" = "orange", "Not significant" = "grey")) +
+        labs(title = paste(project_id, "- Cluster", cluster2, "vs Cluster", cluster1),
+             subtitle = paste("Up:", up_genes, "Down:", down_genes, "Total Sig:", total_sig),
+             x = "Log Fold Change (Cluster 2 vs Cluster 1)",
+             y = "-log10 FDR") +
+        theme_bw() +
+        theme(legend.position = "bottom") +
+        geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "darkgrey") +
+        geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "darkgrey")
+      
+      print(p)
+      dev.off()
+      message("  Volcano plot saved to ", plot_file)
+      
+      # Store summary of this comparison
+      pairwise_results[[paste0("Cluster", cluster2, "_vs_Cluster", cluster1)]] <- data.frame(
+        Project = project_id,
+        Comparison = paste0("Cluster", cluster2, "_vs_Cluster", cluster1),
+        Cluster1 = cluster1,
+        Cluster2 = cluster2,
+        Cluster1_Samples = length(cluster1_indices),
+        Cluster2_Samples = length(cluster2_indices),
+        Filtered_Genes = sum(keep),
+        Total_DEGs = total_sig,
+        Up_in_Cluster2 = up_genes,
+        Down_in_Cluster2 = down_genes,
         stringsAsFactors = FALSE
       )
-      
-      # Extract base ENSEMBL IDs
-      ensembl_to_gene_map$ensembl_base <- extract_base_ensembl(ensembl_to_gene_map$ensembl_id)
-      results_df$ensembl_base <- extract_base_ensembl(results_df$gene_ensembl)
-      
-      # Merge gene names to results
-      results_df <- merge(results_df, 
-                         ensembl_to_gene_map[, c("ensembl_base", "gene_name")], 
-                         by = "ensembl_base", all.x = TRUE)
     }
   }
   
-  # Reorder columns to put gene names first if they exist
-  if ("gene_name" %in% colnames(results_df)) {
-    results_df <- results_df %>%
-      select(ensembl_base, gene_name, gene_ensembl, everything()) %>%
-      arrange(PValue)
+  # Combine all pairwise results
+  if (length(pairwise_results) > 0) {
+    combined_results <- bind_rows(pairwise_results)
+    
+    # Save project-level summary
+    project_summary_file <- file.path(output_dir, paste0(project_id, "_DEG_summary.csv"))
+    write_csv(combined_results, project_summary_file)
+    message("\n  Project summary saved to ", project_summary_file)
+    
+    # Return combined results
+    return(combined_results)
   } else {
-    results_df <- results_df %>%
-      select(ensembl_base, gene_ensembl, everything()) %>%
-      arrange(PValue)
+    message("\n  No significant DEGs found in any cluster comparison")
+    return(NULL)
   }
-  
-  # Save results
-  results_file <- file.path(output_dir, paste0(project_id, "_high_vs_low_DEG.csv"))
-  write_csv(results_df, results_file)
-  
-  # Create summary of results
-  up_genes <- sum(results_df$logFC > 0 & results_df$FDR < 0.05)
-  down_genes <- sum(results_df$logFC < 0 & results_df$FDR < 0.05)
-  total_sig <- sum(results_df$FDR < 0.05)
-  
-  message("  DEG analysis complete. Results saved to ", results_file)
-  message("  Summary: ", total_sig, " significant genes (FDR < 0.05)")
-  message("           ", up_genes, " up-regulated in high expression group")
-  message("           ", down_genes, " down-regulated in high expression group")
-  
-  # Create MA plot if there are significant DEGs
-  if (total_sig > 0) {
-    plot_file <- file.path(output_dir, paste0(project_id, "_high_vs_low_MAplot.pdf"))
-    pdf(plot_file, width = 10, height = 8)
-    
-    # Create data frame for plotting
-    plot_data <- results_df %>%
-      mutate(significance = case_when(
-        FDR < 0.01 ~ "FDR < 0.01",
-        FDR < 0.05 ~ "FDR < 0.05",
-        TRUE ~ "Not significant"
-      ),
-      significance = factor(significance, levels = c("FDR < 0.01", "FDR < 0.05", "Not significant")))
-    
-    # Create MA plot
-    p <- ggplot(plot_data, aes(x = logCPM, y = logFC, color = significance)) +
-      geom_point(size = 0.8, alpha = 0.7) +
-      scale_color_manual(values = c("FDR < 0.01" = "red", "FDR < 0.05" = "orange", "Not significant" = "grey")) +
-      labs(title = paste(project_id, "- High vs Low Chaperone Expression"),
-           subtitle = paste("Up:", up_genes, "Down:", down_genes, "Total Sig:", total_sig),
-           x = "Average Expression (logCPM)",
-           y = "Log Fold Change (High vs Low)") +
-      theme_bw() +
-      theme(legend.position = "bottom")
-    
-    print(p)
-    dev.off()
-    message("  MA plot saved to ", plot_file)
-    
-    # Also create a volcano plot
-    plot_file <- file.path(output_dir, paste0(project_id, "_high_vs_low_volcano.pdf"))
-    pdf(plot_file, width = 10, height = 8)
-    
-    # Create volcano plot
-    p <- ggplot(plot_data, aes(x = logFC, y = -log10(FDR), color = significance)) +
-      geom_point(size = 0.8, alpha = 0.7) +
-      scale_color_manual(values = c("FDR < 0.01" = "red", "FDR < 0.05" = "orange", "Not significant" = "grey")) +
-      labs(title = paste(project_id, "- High vs Low Chaperone Expression"),
-           subtitle = paste("Up:", up_genes, "Down:", down_genes, "Total Sig:", total_sig),
-           x = "Log Fold Change (High vs Low)",
-           y = "-log10 FDR") +
-      theme_bw() +
-      theme(legend.position = "bottom") +
-      geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "darkgrey") +
-      geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "darkgrey")
-    
-    print(p)
-    dev.off()
-    message("  Volcano plot saved to ", plot_file)
-  }
-  
-  # Return a summary of the results
-  return(data.frame(
-    Project = project_id,
-    High_Samples = length(high_indices),
-    Low_Samples = length(low_indices),
-    Filtered_Genes = sum(keep),
-    Total_DEGs = total_sig,
-    Up_in_High = up_genes,
-    Down_in_High = down_genes,
-    stringsAsFactors = FALSE
-  ))
 }
 
-# Find all expression files
-expr_files <- list.files(expr_dir, pattern = "_chaperone_expression_data.csv$", full.names = FALSE)
-project_ids <- gsub("_chaperone_expression_data.csv$", "", expr_files)
+# Find all project directories in the clustering output
+project_dirs <- list.dirs(cluster_dir, full.names = FALSE, recursive = FALSE)
+project_dirs <- project_dirs[project_dirs != ""] # Remove empty entries
 
-message("Found ", length(project_ids), " projects with chaperone expression data")
-print(project_ids)
+message("Found ", length(project_dirs), " projects with cluster data")
+print(project_dirs)
 
 # Process each project
 results <- list()
 
-for (project_id in project_ids) {
-  result <- try(analyze_project(project_id))
+for (project_id in project_dirs) {
+  result <- try(analyze_project_clusters(project_id))
   if (!inherits(result, "try-error") && !is.null(result)) {
     results[[length(results) + 1]] <- result
   }
@@ -291,10 +352,37 @@ if (length(results) > 0) {
   write_csv(summary_df, file.path(output_dir, "DEG_analysis_summary.csv"))
   
   message("\n====== Overall Summary ======")
-  message("Total projects processed: ", nrow(summary_df))
-  message("Total projects with DEGs: ", sum(summary_df$Total_DEGs > 0))
-  message("Total significant DEGs: ", sum(summary_df$Total_DEGs))
-  message("Average DEGs per project: ", round(mean(summary_df$Total_DEGs), 1))
+  message("Total projects processed: ", length(unique(summary_df$Project)))
+  message("Total pairwise comparisons: ", nrow(summary_df))
+  message("Total comparisons with DEGs: ", sum(summary_df$Total_DEGs > 0))
+  message("Total significant DEGs across all comparisons: ", sum(summary_df$Total_DEGs))
+  message("Average DEGs per comparison: ", round(mean(summary_df$Total_DEGs), 1))
+  
+  # Create summary heatmap of DEG counts
+  heatmap_data <- summary_df %>%
+    select(Project, Comparison, Total_DEGs) %>%
+    tidyr::pivot_wider(names_from = Comparison, values_from = Total_DEGs, values_fill = 0) %>%
+    as.data.frame()
+  
+  rownames(heatmap_data) <- heatmap_data$Project
+  heatmap_data <- heatmap_data[, -1]
+  
+  if (ncol(heatmap_data) > 0 && nrow(heatmap_data) > 0) {
+    pdf(file.path(output_dir, "DEG_counts_heatmap.pdf"), width = 12, height = 10)
+    pheatmap::pheatmap(
+      heatmap_data,
+      main = "Number of DEGs by Cluster Comparison",
+      color = colorRampPalette(c("white", "red"))(100),
+      display_numbers = TRUE,
+      fontsize_number = 8,
+      fontsize = 10,
+      fontsize_row = 10,
+      fontsize_col = 8,
+      angle_col = 45
+    )
+    dev.off()
+    message("Generated heatmap of DEG counts")
+  }
   
   # Print summary table
   print(summary_df)
@@ -306,4 +394,4 @@ if (length(results) > 0) {
 sink()
 close(con)
 
-message("\nDifferential expression analysis complete!")
+message("\nDifferential expression analysis based on patient clusters complete!")

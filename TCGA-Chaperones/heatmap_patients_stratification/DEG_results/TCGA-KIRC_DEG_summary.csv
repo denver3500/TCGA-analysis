@@ -1,0 +1,2 @@
+Project,Comparison,Cluster1,Cluster2,Cluster1_Samples,Cluster2_Samples,Filtered_Genes,Total_DEGs,Up_in_Cluster2,Down_in_Cluster2
+TCGA-KIRC,Cluster2_vs_Cluster1,1,2,389,152,23782,12369,7178,5191

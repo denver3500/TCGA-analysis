@@ -1,0 +1,4 @@
+Project,Comparison,Cluster1,Cluster2,Cluster1_Samples,Cluster2_Samples,Filtered_Genes,Total_DEGs,Up_in_Cluster2,Down_in_Cluster2
+TCGA-LUAD,Cluster2_vs_Cluster1,1,2,379,160,23044,15184,9519,5665
+TCGA-LUAD,Cluster3_vs_Cluster1,1,3,379,35,30253,21089,11906,9183
+TCGA-LUAD,Cluster3_vs_Cluster2,2,3,160,35,26227,18231,8636,9595
