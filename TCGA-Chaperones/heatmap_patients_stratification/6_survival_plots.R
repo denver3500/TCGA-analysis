@@ -81,10 +81,17 @@ for(project in projects) {
     groups[[paste0("Cluster_", cluster_num)]] <- unique(cluster_patients)
   }
   
-  # Skip if any group has fewer than 5 patients
-  min_group_size <- min(sapply(groups, length))
+  # Check group sizes but don't skip - just warn
+  group_sizes <- sapply(groups, length)
+  min_group_size <- min(group_sizes)
   if(min_group_size < 5) {
-    cat("  Skipping - some clusters have fewer than 5 patients\n")
+    cat("  Warning: Some clusters have fewer than 5 patients (min:", min_group_size, ")\n")
+    cat("  Group sizes:", paste(names(group_sizes), "=", group_sizes, collapse=", "), "\n")
+  }
+  
+  # Skip only if any group is completely empty
+  if(min_group_size == 0) {
+    cat("  Skipping - found empty clusters\n")
     next
   }
   
