@@ -195,29 +195,29 @@ anno_colors <- list(
   Family = family_colors
 )
 
-# Create enhanced heatmap with annotations - fixed with larger fonts and more spacing
+# Create enhanced heatmap with annotations
 pdf("TCGA-Chaperones/pictures/pan_cancer_analysis/chaperone_expression_heatmap_enhanced.pdf", width = 24, height = 20)
 pheatmap(
   heatmap_data,
   color = colorRampPalette(rev(brewer.pal(11, "RdBu")))(100),
   display_numbers = significance_annotation,
-  fontsize_number = 16,  # Increased size for significance stars
-  annotation_col = col_anno,  # Gene family annotations
+  fontsize_number = 16,
+  annotation_col = col_anno,  
   annotation_colors = anno_colors,
   main = "Chaperone Expression Changes Across TCGA Cancer Types",
-  fontsize = 16,  # Main title size
-  fontsize_row = 16,  # Increased size for project names
-  fontsize_col = 16,  # Increased size for gene names
+  fontsize = 16,  
+  fontsize_row = 16, 
+  fontsize_col = 16, 
   angle_col = 45,
   clustering_distance_rows = "euclidean",
   clustering_distance_cols = "euclidean",
   clustering_method = "ward.D2",
   border_color = NA,
-  show_rownames = TRUE,  # Explicitly show project names
-  treeheight_row = 150,  # Increase space for row dendrogram
-  treeheight_col = 150,  # Increase space for column dendrogram
-  cellwidth = 30,        # Increased cell width for more spacing
-  cellheight = 20,       # Increase cell height
+  show_rownames = TRUE,  
+  treeheight_row = 150, 
+  treeheight_col = 150, 
+  cellwidth = 30,        
+  cellheight = 20,       
   legend = TRUE,
   # Fixed consistent scale from -2 to 2
   breaks = seq(-2, 2, length.out = 101),
@@ -226,7 +226,7 @@ pheatmap(
 )
 dev.off()
 
-# Also create a simplified version in case the complex one fails
+# Create a simplified version
 pdf("TCGA-Chaperones/pictures/pan_cancer_analysis/chaperone_expression_heatmap_simple.pdf", width = 24, height = 20)
 pheatmap(
   heatmap_data,
@@ -243,7 +243,7 @@ pheatmap(
 )
 dev.off()
 
-# Also increase font size in the bubble plot
+# Increase font size in the bubble plot
 bubble_plot <- filtered_summary %>%
   mutate(
     direction = case_when(

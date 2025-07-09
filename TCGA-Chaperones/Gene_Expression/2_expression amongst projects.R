@@ -18,7 +18,7 @@ primary_normal_data <- readRDS("TCGA-Chaperones/primary_normal_data.rds")
 # Filter the data to only include selected projects
 primary_normal_data <- primary_normal_data[filtered_projects]
 
-# Get project names from TCGAbiolinks for better labels
+# Get project names from TCGAbiolinks
 projects_info <- TCGAbiolinks:::getGDCprojects()
 project_labels <- sapply(filtered_projects, function(project) {
   name <- projects_info$name[projects_info$project_id == project]

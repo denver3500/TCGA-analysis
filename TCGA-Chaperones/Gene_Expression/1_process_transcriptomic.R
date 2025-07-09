@@ -9,8 +9,8 @@ library(ggsignif)
 
 rds_files <- list.files("TCGA-Chaperones/rds", pattern = "*.rds", full.names = TRUE) # Looking for created .rds files after downloading data
 filtered_gene_data <- list() # Store data for later
-primary_normal_data <- list() # Store primary tumor and solid tissue normal data for all projects # nolint: line_length_linter.
-genes_filter <- read.csv("TCGA-Chaperones/gene_list.csv") # File with Gene name, UniProt ID, AGID (For Proteomics), and ENSEMBL id
+primary_normal_data <- list() # Store primary tumor and solid tissue normal data for all projects
+genes_filter <- read.csv("TCGA-Chaperones/gene_list.csv") # File with Gene names and description
 Ensembl_column <- genes_filter$ENSEMBL
 projects_info <- TCGAbiolinks:::getGDCprojects() # Load information about projects
 
@@ -27,7 +27,6 @@ project_id <- gsub(".*/(.*?)_.*\\.rds$", "\\1", rds_file)  # Extracts just the p
   project_name <- projects_info$name[projects_info$project_id == project_id] #Retrieve project name
   disease_type <- projects_info$disease_type[projects_info$project_id == project_id] #Retrieve disease type
   sanitized_project_name <- gsub("[^A-Za-z0-9]", "_", project_name) # Make sure that project name .png can be saved
-
   TPM_data <- assay(transcriptomic_exp, "tpm_unstrand")
   TPM_data <- TPM_data[sapply(rownames(TPM_data), function(x) any(sapply(genes_filter$ENSEMBL, function(pattern) grepl(pattern, x)))), ]
   filtered_gene_data[[project_id]] <- TPM_data
@@ -35,7 +34,7 @@ project_id <- gsub(".*/(.*?)_.*\\.rds$", "\\1", rds_file)  # Extracts just the p
   sample_types <- sample_types[colnames(TPM_data), ] # Subset sample_types to include only the samples present in filtered_TPM_data
   
   if ("sample_type" %in% colnames(sample_types)) {
-    sample_types$type <- factor(sample_types$sample_type, levels = c("Solid Tissue Normal", "Primary Tumor")) # Change order so Solid Tissue Normal is first
+    sample_types$type <- factor(sample_types$sample_type, levels = c("Solid Tissue Normal", "Primary Tumor"))
   } else {
     message(paste("Error: 'sample_type' column not found in project:", project_id))
     next

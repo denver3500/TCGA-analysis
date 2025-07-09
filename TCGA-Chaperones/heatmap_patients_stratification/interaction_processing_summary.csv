@@ -1,0 +1,7 @@
+metric,count
+Original_interactions,7632
+UniProt_filtered,7528
+Ensembl_mapped,6802
+Final_chaperone_interactions,4222
+Unique_chaperones,18
+Unique_interactors,2891

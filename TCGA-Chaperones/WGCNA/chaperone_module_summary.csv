@@ -1,0 +1,7 @@
+"Project","Total_Found","Dominant_Module","Dominant_Percentage"
+"TCGA-BLCA",11,"orange",18.2
+"TCGA-BRCA",18,"green",22.2
+"TCGA-CESC",8,"red",37.5
+"TCGA-ESCA",8,"grey",37.5
+"TCGA-HNSC",10,"black",30
+"TCGA-KIRC",14,"pink",21.4

@@ -10,7 +10,7 @@ library(viridis)
 project_names <- read.csv("TCGA-Chaperones/significant_higher_in_tumor_gene_counts.csv", stringsAsFactors = FALSE)
 gene_list <- read.csv("TCGA-Chaperones/gene_list.csv", stringsAsFactors = FALSE)
 
-# Get project information for better labeling
+# Get project information
 projects_info <- TCGAbiolinks:::getGDCprojects()
 
 # Filter projects with 10 or more genes significantly higher in tumor
@@ -41,7 +41,7 @@ for (file in filtered_rds_files) {
   filename <- basename(file)
   project <- strsplit(filename, "_")[[1]][1]
 
-  # Get human-readable cancer type name
+  # Get cancer type name
   cancer_type <- ""
   if (project %in% projects_info$project_id) {
     cancer_type <- projects_info$name[projects_info$project_id == project]
