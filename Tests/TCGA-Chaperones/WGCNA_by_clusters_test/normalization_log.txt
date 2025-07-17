@@ -1,0 +1,16 @@
+
+  1   2 
+807 304 
+
+  1   2 
+290 122 
+                Project Cluster N_Samples N_Genes Mean_Expression
+Cluster_1...1 TCGA-BRCA       1       808   22932        8.142906
+Cluster_2...2 TCGA-BRCA       2       305   22519        8.310861
+Cluster_1...3 TCGA-BLCA       1       292   21818        7.964605
+Cluster_2...4 TCGA-BLCA       2       123   21950        8.135270
+                                       Data_File
+Cluster_1...1 TCGA-BRCA_cluster_1_wgcna_data.rds
+Cluster_2...2 TCGA-BRCA_cluster_2_wgcna_data.rds
+Cluster_1...3 TCGA-BLCA_cluster_1_wgcna_data.rds
+Cluster_2...4 TCGA-BLCA_cluster_2_wgcna_data.rds

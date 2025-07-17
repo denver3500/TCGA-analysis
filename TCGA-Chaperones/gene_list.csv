@@ -1,20 +1,23 @@
-ENSEMBL,Name,Family,Stress-inducible,Comments
-ENSG00000144381,HSPD1,HSP60,Yes,mtHSP60
-ENSG00000115541,HSPE1,HSP10,Yes,"mtHSP10, co-chaperone of mtHSP60"
-ENSG00000146731,CCT6A,HSP60,Yes,Co-chaperone of mtHSP60
-ENSG00000113013,HSPA9,HSP70,Yes,"Mortalin, HSP70"
-ENSG00000213221,DNLZ,HSP70,,"Co-chaperone, stimulates Hsp70 ATPase activity"
-ENSG00000109519,GRPEL1,HSP70,No,"Co-chaperone, nucleotide exchange factor for Hsp70"
-ENSG00000164284,GRPEL2,HSP70,No,"Co-chaperone, nucleotide exchange factor for Hsp70"
-ENSG00000103423,DNAJA3,HSP40,No,"TID1, Co-chaperone, stimulates Hsp70 ATPase activity"
-ENSG00000080824,HSP90AA1,HSP90,Yes,
-ENSG00000096384,HSP90AB1,HSP90,Yes,
-ENSG00000126602,TRAP1,HSP90,No,
-ENSG00000205981,DNAJC19,HSP40,No,"Mitochondrial chaperone, TIM14 functions as part of the TIM23 complex import motor to facilitate the import of nuclear-encoded proteins into the mitochondria"
-ENSG00000100209,HSCB,HSP40,No,DNAJC20; Mitochondrial Iron-Sulfur Cluster Cochaperonem important for SDHB
-ENSG00000205138,SDHAF1,HSP40,,"Co-chaperone of HSCB. The succinate dehydrogenase (SDH) complex (or complex II) of the mitochondrial respiratory chain is composed of 4 individual subunits. The protein encoded by this gene resides in the mitochondria, and is essential for SDH assembly, but does not physically associate with the complex in vivo. Mutations in this gene are associated with SDH-defective infantile leukoencephalopathy"
-ENSG00000166855,CLPX,Other,No,ATP-dependent chaperone that functions as an unfoldase.
-ENSG00000106211,HSPB1,sHSP,Yes,
-ENSG00000152137,HSPB8,sHSP,Yes,
-ENSG00000173641,HSPB7,sHSP,No,
-ENSG00000109846,CRYAB,sHSP,,"HSPB5. Has chaperone-like activity, preventing aggregation of various proteins under a wide range of stress conditions. I"
+ENSEMBL,Name,Family,Comments
+ENSG00000146731,CCT6A,HSP60,Co-chaperone of mtHSP60
+ENSG00000213221,DNLZ,HSP70,"Co-chaperone, stimulates Hsp70 ATPase activity"
+ENSG00000113013,HSPA9,HSP70,"Mortalin, HSP70"
+ENSG00000109519,GRPEL1,HSP70,"Co-chaperone, nucleotide exchange factor for Hsp70"
+ENSG00000164284,GRPEL2,HSP70,"Co-chaperone, nucleotide exchange factor for Hsp70"
+ENSG00000103423,DNAJA3,HSP40,"Stimulates ATPase activity, prevents aggregation"
+ENSG00000120675,DNAJC15,HSP40,Protein transport and chemotherapy response
+ENSG00000144381,HSPD1,HSP60,mtHSP60
+ENSG00000115541,HSPE1,HSP10,"mtHSP10, co-chaperone of mtHSP60"
+ENSG00000126602,TRAP1,HSP90,mtHSP90
+ENSG00000135924,DNAJB2,HSP40,"Neuronal DnaJ/Hsp40 chaperone, suppresses protein aggregation"
+ENSG00000105993,DNAJB6,HSP40,Restores mitophagy by promoting protein relocation
+ENSG00000080824,HSP90AA1,HSP90,
+ENSG00000096384,HSP90AB1,HSP90,
+ENSG00000106211,HSPB1,sHSP,
+ENSG00000173641,HSPB7,sHSP,
+ENSG00000152137,HSPB8,sHSP,
+ENSG00000109846,CRYAB,sHSP,"HSPB5. Has chaperone-like activity, preventing aggregation of various proteins under a wide range of stress conditions. I"
+ENSG00000166855,CLPX,HSP100,ATP-dependent chaperone that functions as an unfoldase.
+ENSG00000205981,DNAJC19,HSP40,J-protein co-chaperone
+ENSG00000100209,HSCB,HSP40,DNAJC20; Mitochondrial Iron-Sulfur Cluster Cochaperonem important for SDHB
+ENSG00000205138,SDHAF1,HSP40,"Co-chaperone of HSCB. The succinate dehydrogenase (SDH) complex (or complex II) of the mitochondrial respiratory chain is composed of 4 individual subunits. The protein encoded by this gene resides in the mitochondria, and is essential for SDH assembly, but does not physically associate with the complex in vivo. Mutations in this gene are associated with SDH-defective infantile leukoencephalopathy"

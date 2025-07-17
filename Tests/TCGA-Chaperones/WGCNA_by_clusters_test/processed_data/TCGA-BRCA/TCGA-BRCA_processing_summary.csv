@@ -1,0 +1,3 @@
+Project,Cluster,N_Samples,N_Genes,Mean_Expression,Data_File
+TCGA-BRCA,1,808,22932,8.142906082422554,TCGA-BRCA_cluster_1_wgcna_data.rds
+TCGA-BRCA,2,305,22519,8.31086073733431,TCGA-BRCA_cluster_2_wgcna_data.rds

@@ -1,0 +1,3 @@
+Project,Cluster,Total_Chaperones,Total_Modules,Dominant_Module,Dominant_Count,Dominant_Percentage
+TCGA-BRCA,1,19,14,black,3,15.8
+TCGA-BRCA,2,19,14,blue,2,10.5

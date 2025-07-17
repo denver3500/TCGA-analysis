@@ -1,0 +1,15 @@
+module_color,n_chaperones,chaperone_genes,percentage
+black,3,"DNAJA3, HSPB1, SDHAF1",15.8
+red,3,"HSCB, GRPEL1, HSPE1",15.8
+magenta,2,"HSPD1, CCT6A",10.5
+darkgrey,1,HSPB7,5.3
+darkmagenta,1,HSP90AA1,5.3
+darkolivegreen,1,HSP90AB1,5.3
+green,1,CRYAB,5.3
+greenyellow,1,GRPEL2,5.3
+grey,1,HSPA9,5.3
+grey60,1,HSPB8,5.3
+midnightblue,1,DNAJC19,5.3
+purple,1,TRAP1,5.3
+turquoise,1,CLPX,5.3
+yellow,1,DNLZ,5.3

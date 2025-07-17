@@ -1,0 +1,524 @@
+ Flagging genes and samples with too many missing values...
+  ..step 1
+pickSoftThreshold: will use block size 1950.
+ pickSoftThreshold: calculating connectivity for given powers...
+   ..working on genes 1 through 1950 of 22932
+   ..working on genes 1951 through 3900 of 22932
+   ..working on genes 3901 through 5850 of 22932
+   ..working on genes 5851 through 7800 of 22932
+   ..working on genes 7801 through 9750 of 22932
+   ..working on genes 9751 through 11700 of 22932
+   ..working on genes 11701 through 13650 of 22932
+   ..working on genes 13651 through 15600 of 22932
+   ..working on genes 15601 through 17550 of 22932
+   ..working on genes 17551 through 19500 of 22932
+   ..working on genes 19501 through 21450 of 22932
+   ..working on genes 21451 through 22932 of 22932
+   Power SFT.R.sq  slope truncated.R.sq  mean.k. median.k. max.k.
+1      1   0.0768  0.717          0.955 3280.000  3.23e+03 5970.0
+2      2   0.4030 -1.220          0.960  777.000  7.10e+02 2330.0
+3      3   0.6990 -1.910          0.972  243.000  1.96e+02 1140.0
+4      4   0.7600 -2.200          0.969   91.700  6.26e+01  625.0
+5      5   0.7940 -2.280          0.980   39.600  2.20e+01  370.0
+6      6   0.8120 -2.250          0.986   19.100  8.32e+00  231.0
+7      7   0.8150 -2.170          0.973   10.000  3.38e+00  151.0
+8      8   0.8890 -1.910          0.995    5.630  1.44e+00  101.0
+9      9   0.9240 -1.830          0.996    3.370  6.62e-01   76.0
+10    10   0.9320 -1.820          0.990    2.120  3.19e-01   62.4
+11    12   0.9480 -1.730          0.981    0.955  8.54e-02   43.6
+12    14   0.9580 -1.650          0.978    0.491  2.55e-02   32.3
+13    16   0.9600 -1.600          0.980    0.279  8.16e-03   24.7
+14    18   0.9630 -1.550          0.981    0.171  2.81e-03   19.3
+15    20   0.9590 -1.520          0.981    0.111  1.02e-03   15.4
+ Calculating module eigengenes block-wise from all genes
+   Flagging genes and samples with too many missing values...
+    ..step 1
+ ....pre-clustering genes to determine blocks..
+   Projective K-means:
+   ..k-means clustering..
+   ..merging smaller clusters...
+Block sizes:
+gBlocks
+   1    2    3    4    5 
+5000 4994 4717 4711 3510 
+ ..Working on block 1 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 1 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_1/TCGA-BRCA_cluster_1_TOM-block.1.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 144 genes from module 1 because their KME is too low.
+     ..removing 82 genes from module 2 because their KME is too low.
+     ..removing 19 genes from module 3 because their KME is too low.
+     ..removing 1 genes from module 8 because their KME is too low.
+ ..Working on block 2 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 2 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_1/TCGA-BRCA_cluster_1_TOM-block.2.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 64 genes from module 1 because their KME is too low.
+     ..removing 20 genes from module 2 because their KME is too low.
+     ..removing 3 genes from module 3 because their KME is too low.
+ ..Working on block 3 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 3 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_1/TCGA-BRCA_cluster_1_TOM-block.3.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 41 genes from module 1 because their KME is too low.
+     ..removing 1 genes from module 2 because their KME is too low.
+     ..removing 19 genes from module 3 because their KME is too low.
+     ..removing 2 genes from module 6 because their KME is too low.
+     ..removing 9 genes from module 7 because their KME is too low.
+     ..removing 1 genes from module 9 because their KME is too low.
+     ..removing 2 genes from module 13 because their KME is too low.
+ ..Working on block 4 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 4 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_1/TCGA-BRCA_cluster_1_TOM-block.4.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 7 genes from module 1 because their KME is too low.
+     ..removing 1 genes from module 2 because their KME is too low.
+     ..removing 3 genes from module 5 because their KME is too low.
+     ..removing 2 genes from module 7 because their KME is too low.
+     ..removing 2 genes from module 12 because their KME is too low.
+ ..Working on block 5 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 5 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_1/TCGA-BRCA_cluster_1_TOM-block.5.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 34 genes from module 1 because their KME is too low.
+     ..removing 33 genes from module 2 because their KME is too low.
+     ..removing 1 genes from module 5 because their KME is too low.
+     ..removing 8 genes from module 6 because their KME is too low.
+  ..reassigning 840 genes from module 1 to modules with higher KME.
+  ..reassigning 495 genes from module 2 to modules with higher KME.
+  ..reassigning 172 genes from module 3 to modules with higher KME.
+  ..reassigning 35 genes from module 4 to modules with higher KME.
+  ..reassigning 36 genes from module 5 to modules with higher KME.
+  ..reassigning 16 genes from module 6 to modules with higher KME.
+  ..reassigning 11 genes from module 7 to modules with higher KME.
+  ..reassigning 19 genes from module 8 to modules with higher KME.
+  ..reassigning 13 genes from module 9 to modules with higher KME.
+  ..reassigning 9 genes from module 10 to modules with higher KME.
+  ..reassigning 1 genes from module 11 to modules with higher KME.
+  ..reassigning 2 genes from module 12 to modules with higher KME.
+  ..reassigning 8 genes from module 13 to modules with higher KME.
+  ..reassigning 2 genes from module 14 to modules with higher KME.
+  ..reassigning 2 genes from module 17 to modules with higher KME.
+  ..reassigning 1 genes from module 18 to modules with higher KME.
+  ..reassigning 1 genes from module 19 to modules with higher KME.
+  ..reassigning 630 genes from module 20 to modules with higher KME.
+  ..reassigning 332 genes from module 21 to modules with higher KME.
+  ..reassigning 244 genes from module 22 to modules with higher KME.
+  ..reassigning 36 genes from module 23 to modules with higher KME.
+  ..reassigning 10 genes from module 24 to modules with higher KME.
+  ..reassigning 7 genes from module 26 to modules with higher KME.
+  ..reassigning 131 genes from module 27 to modules with higher KME.
+  ..reassigning 117 genes from module 28 to modules with higher KME.
+  ..reassigning 154 genes from module 29 to modules with higher KME.
+  ..reassigning 70 genes from module 30 to modules with higher KME.
+  ..reassigning 38 genes from module 31 to modules with higher KME.
+  ..reassigning 36 genes from module 32 to modules with higher KME.
+  ..reassigning 65 genes from module 33 to modules with higher KME.
+  ..reassigning 1 genes from module 34 to modules with higher KME.
+  ..reassigning 19 genes from module 35 to modules with higher KME.
+  ..reassigning 12 genes from module 36 to modules with higher KME.
+  ..reassigning 3 genes from module 38 to modules with higher KME.
+  ..reassigning 3 genes from module 39 to modules with higher KME.
+  ..reassigning 1 genes from module 40 to modules with higher KME.
+  ..reassigning 170 genes from module 43 to modules with higher KME.
+  ..reassigning 93 genes from module 44 to modules with higher KME.
+  ..reassigning 111 genes from module 45 to modules with higher KME.
+  ..reassigning 30 genes from module 46 to modules with higher KME.
+  ..reassigning 24 genes from module 47 to modules with higher KME.
+  ..reassigning 28 genes from module 48 to modules with higher KME.
+  ..reassigning 29 genes from module 49 to modules with higher KME.
+  ..reassigning 13 genes from module 50 to modules with higher KME.
+  ..reassigning 6 genes from module 51 to modules with higher KME.
+  ..reassigning 18 genes from module 52 to modules with higher KME.
+  ..reassigning 18 genes from module 53 to modules with higher KME.
+  ..reassigning 7 genes from module 54 to modules with higher KME.
+  ..reassigning 2 genes from module 55 to modules with higher KME.
+  ..reassigning 1 genes from module 56 to modules with higher KME.
+  ..reassigning 4 genes from module 57 to modules with higher KME.
+  ..reassigning 1 genes from module 58 to modules with higher KME.
+  ..reassigning 2 genes from module 60 to modules with higher KME.
+  ..reassigning 3 genes from module 61 to modules with higher KME.
+  ..reassigning 289 genes from module 62 to modules with higher KME.
+  ..reassigning 264 genes from module 63 to modules with higher KME.
+  ..reassigning 65 genes from module 64 to modules with higher KME.
+  ..reassigning 65 genes from module 65 to modules with higher KME.
+  ..reassigning 19 genes from module 66 to modules with higher KME.
+  ..reassigning 24 genes from module 67 to modules with higher KME.
+  ..reassigning 10 genes from module 68 to modules with higher KME.
+  ..reassigning 2 genes from module 69 to modules with higher KME.
+ ..merging modules that are too close..
+     mergeCloseModules: Merging modules whose distance is less than 0.25
+       Calculating new MEs...
+ Flagging genes and samples with too many missing values...
+  ..step 1
+pickSoftThreshold: will use block size 1986.
+ pickSoftThreshold: calculating connectivity for given powers...
+   ..working on genes 1 through 1986 of 22519
+   ..working on genes 1987 through 3972 of 22519
+   ..working on genes 3973 through 5958 of 22519
+   ..working on genes 5959 through 7944 of 22519
+   ..working on genes 7945 through 9930 of 22519
+   ..working on genes 9931 through 11916 of 22519
+   ..working on genes 11917 through 13902 of 22519
+   ..working on genes 13903 through 15888 of 22519
+   ..working on genes 15889 through 17874 of 22519
+   ..working on genes 17875 through 19860 of 22519
+   ..working on genes 19861 through 21846 of 22519
+   ..working on genes 21847 through 22519 of 22519
+   Power SFT.R.sq   slope truncated.R.sq  mean.k. median.k. max.k.
+1      1 7.37e-05 -0.0321          0.961 2500.000  2.46e+03 4370.0
+2      2 4.61e-01 -1.8300          0.961  470.000  4.28e+02 1390.0
+3      3 6.92e-01 -2.1500          0.934  122.000  9.49e+01  560.0
+4      4 9.01e-01 -1.9700          0.993   40.400  2.50e+01  297.0
+5      5 9.45e-01 -1.9700          0.997   16.400  7.51e+00  208.0
+6      6 9.63e-01 -1.8400          0.997    7.920  2.58e+00  156.0
+7      7 9.70e-01 -1.7100          0.997    4.350  9.96e-01  121.0
+8      8 9.72e-01 -1.6100          0.994    2.650  4.28e-01   96.5
+9      9 9.62e-01 -1.5300          0.979    1.730  2.02e-01   78.2
+10    10 9.64e-01 -1.4700          0.981    1.200  9.92e-02   64.8
+11    12 9.72e-01 -1.4100          0.996    0.648  2.72e-02   47.4
+12    14 9.47e-01 -1.4000          0.976    0.387  8.29e-03   36.0
+13    16 9.56e-01 -1.3700          0.986    0.248  2.69e-03   28.1
+14    18 9.44e-01 -1.3800          0.978    0.167  9.37e-04   22.4
+15    20 9.52e-01 -1.3700          0.983    0.116  3.30e-04   18.2
+ Calculating module eigengenes block-wise from all genes
+   Flagging genes and samples with too many missing values...
+    ..step 1
+ ....pre-clustering genes to determine blocks..
+   Projective K-means:
+   ..k-means clustering..
+   ..merging smaller clusters...
+Block sizes:
+gBlocks
+   1    2    3    4    5 
+5000 4986 4683 4560 3290 
+ ..Working on block 1 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 1 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_2/TCGA-BRCA_cluster_2_TOM-block.1.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 173 genes from module 1 because their KME is too low.
+     ..removing 190 genes from module 2 because their KME is too low.
+     ..removing 120 genes from module 3 because their KME is too low.
+     ..removing 46 genes from module 4 because their KME is too low.
+     ..removing 11 genes from module 5 because their KME is too low.
+     ..removing 2 genes from module 6 because their KME is too low.
+     ..removing 11 genes from module 7 because their KME is too low.
+     ..removing 11 genes from module 8 because their KME is too low.
+     ..removing 15 genes from module 9 because their KME is too low.
+     ..removing 8 genes from module 11 because their KME is too low.
+     ..removing 3 genes from module 12 because their KME is too low.
+     ..removing 1 genes from module 13 because their KME is too low.
+     ..removing 2 genes from module 14 because their KME is too low.
+     ..removing 2 genes from module 17 because their KME is too low.
+     ..removing 5 genes from module 18 because their KME is too low.
+     ..removing 1 genes from module 20 because their KME is too low.
+     ..removing 2 genes from module 22 because their KME is too low.
+     ..removing 2 genes from module 24 because their KME is too low.
+     ..removing 1 genes from module 25 because their KME is too low.
+     ..removing 2 genes from module 27 because their KME is too low.
+ ..Working on block 2 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 2 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_2/TCGA-BRCA_cluster_2_TOM-block.2.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 355 genes from module 1 because their KME is too low.
+     ..removing 299 genes from module 2 because their KME is too low.
+     ..removing 204 genes from module 3 because their KME is too low.
+     ..removing 75 genes from module 4 because their KME is too low.
+     ..removing 4 genes from module 5 because their KME is too low.
+     ..removing 3 genes from module 6 because their KME is too low.
+     ..removing 8 genes from module 7 because their KME is too low.
+     ..removing 3 genes from module 8 because their KME is too low.
+     ..removing 1 genes from module 9 because their KME is too low.
+     ..removing 1 genes from module 11 because their KME is too low.
+ ..Working on block 3 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 3 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_2/TCGA-BRCA_cluster_2_TOM-block.3.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 261 genes from module 1 because their KME is too low.
+     ..removing 208 genes from module 2 because their KME is too low.
+     ..removing 75 genes from module 3 because their KME is too low.
+     ..removing 23 genes from module 4 because their KME is too low.
+     ..removing 10 genes from module 5 because their KME is too low.
+     ..removing 10 genes from module 6 because their KME is too low.
+     ..removing 4 genes from module 7 because their KME is too low.
+     ..removing 3 genes from module 8 because their KME is too low.
+     ..removing 3 genes from module 9 because their KME is too low.
+     ..removing 3 genes from module 10 because their KME is too low.
+     ..removing 4 genes from module 12 because their KME is too low.
+     ..removing 1 genes from module 13 because their KME is too low.
+ ..Working on block 4 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 4 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_2/TCGA-BRCA_cluster_2_TOM-block.4.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 492 genes from module 1 because their KME is too low.
+     ..removing 152 genes from module 2 because their KME is too low.
+     ..removing 89 genes from module 3 because their KME is too low.
+     ..removing 82 genes from module 4 because their KME is too low.
+     ..removing 37 genes from module 5 because their KME is too low.
+     ..removing 57 genes from module 6 because their KME is too low.
+     ..removing 4 genes from module 7 because their KME is too low.
+     ..removing 70 genes from module 8 because their KME is too low.
+     ..removing 30 genes from module 9 because their KME is too low.
+     ..removing 4 genes from module 10 because their KME is too low.
+     ..removing 1 genes from module 11 because their KME is too low.
+     ..removing 3 genes from module 12 because their KME is too low.
+     ..removing 1 genes from module 13 because their KME is too low.
+     ..removing 2 genes from module 14 because their KME is too low.
+     ..removing 3 genes from module 15 because their KME is too low.
+ ..Working on block 5 .
+    TOM calculation: adjacency..
+    ..will use 4 parallel threads.
+     Fraction of slow calculations: 0.000000
+    ..connectivity..
+    ..matrix multiplication (system BLAS)..
+    ..normalization..
+    ..done.
+   ..saving TOM for block 5 into file TCGA-Chaperones/WGCNA_by_clusters_test/results/TCGA-BRCA/cluster_2/TCGA-BRCA_cluster_2_TOM-block.5.RData
+ ....clustering..
+ ....detecting modules..
+ ....calculating module eigengenes..
+ ....checking kME in modules..
+     ..removing 25 genes from module 1 because their KME is too low.
+     ..removing 17 genes from module 2 because their KME is too low.
+     ..removing 64 genes from module 3 because their KME is too low.
+     ..removing 25 genes from module 4 because their KME is too low.
+     ..removing 1 genes from module 5 because their KME is too low.
+     ..removing 14 genes from module 6 because their KME is too low.
+     ..removing 15 genes from module 7 because their KME is too low.
+     ..removing 3 genes from module 8 because their KME is too low.
+     ..removing 8 genes from module 9 because their KME is too low.
+     ..removing 15 genes from module 10 because their KME is too low.
+     ..removing 1 genes from module 11 because their KME is too low.
+     ..removing 4 genes from module 12 because their KME is too low.
+     ..removing 3 genes from module 14 because their KME is too low.
+     ..removing 1 genes from module 15 because their KME is too low.
+     ..removing 4 genes from module 16 because their KME is too low.
+     ..removing 3 genes from module 17 because their KME is too low.
+     ..removing 9 genes from module 18 because their KME is too low.
+     ..removing 1 genes from module 19 because their KME is too low.
+     ..removing 4 genes from module 21 because their KME is too low.
+     ..removing 1 genes from module 22 because their KME is too low.
+     ..removing 1 genes from module 24 because their KME is too low.
+     ..removing 1 genes from module 25 because their KME is too low.
+     ..removing 6 genes from module 26 because their KME is too low.
+     ..removing 1 genes from module 30 because their KME is too low.
+  ..reassigning 149 genes from module 1 to modules with higher KME.
+  ..reassigning 114 genes from module 2 to modules with higher KME.
+  ..reassigning 79 genes from module 3 to modules with higher KME.
+  ..reassigning 16 genes from module 4 to modules with higher KME.
+  ..reassigning 13 genes from module 5 to modules with higher KME.
+  ..reassigning 14 genes from module 6 to modules with higher KME.
+  ..reassigning 3 genes from module 7 to modules with higher KME.
+  ..reassigning 4 genes from module 8 to modules with higher KME.
+  ..reassigning 9 genes from module 9 to modules with higher KME.
+  ..reassigning 5 genes from module 10 to modules with higher KME.
+  ..reassigning 10 genes from module 11 to modules with higher KME.
+  ..reassigning 4 genes from module 12 to modules with higher KME.
+  ..reassigning 1 genes from module 14 to modules with higher KME.
+  ..reassigning 2 genes from module 15 to modules with higher KME.
+  ..reassigning 1 genes from module 17 to modules with higher KME.
+  ..reassigning 3 genes from module 18 to modules with higher KME.
+  ..reassigning 1 genes from module 20 to modules with higher KME.
+  ..reassigning 3 genes from module 22 to modules with higher KME.
+  ..reassigning 2 genes from module 23 to modules with higher KME.
+  ..reassigning 2 genes from module 24 to modules with higher KME.
+  ..reassigning 3 genes from module 25 to modules with higher KME.
+  ..reassigning 1 genes from module 26 to modules with higher KME.
+  ..reassigning 3 genes from module 27 to modules with higher KME.
+  ..reassigning 5 genes from module 28 to modules with higher KME.
+  ..reassigning 1 genes from module 30 to modules with higher KME.
+  ..reassigning 116 genes from module 34 to modules with higher KME.
+  ..reassigning 116 genes from module 35 to modules with higher KME.
+  ..reassigning 127 genes from module 36 to modules with higher KME.
+  ..reassigning 32 genes from module 37 to modules with higher KME.
+  ..reassigning 9 genes from module 38 to modules with higher KME.
+  ..reassigning 15 genes from module 39 to modules with higher KME.
+  ..reassigning 2 genes from module 40 to modules with higher KME.
+  ..reassigning 2 genes from module 41 to modules with higher KME.
+  ..reassigning 2 genes from module 42 to modules with higher KME.
+  ..reassigning 6 genes from module 45 to modules with higher KME.
+  ..reassigning 135 genes from module 46 to modules with higher KME.
+  ..reassigning 143 genes from module 47 to modules with higher KME.
+  ..reassigning 41 genes from module 48 to modules with higher KME.
+  ..reassigning 14 genes from module 49 to modules with higher KME.
+  ..reassigning 19 genes from module 50 to modules with higher KME.
+  ..reassigning 1 genes from module 51 to modules with higher KME.
+  ..reassigning 2 genes from module 52 to modules with higher KME.
+  ..reassigning 5 genes from module 54 to modules with higher KME.
+  ..reassigning 6 genes from module 55 to modules with higher KME.
+  ..reassigning 1 genes from module 56 to modules with higher KME.
+  ..reassigning 1 genes from module 57 to modules with higher KME.
+  ..reassigning 1 genes from module 58 to modules with higher KME.
+  ..reassigning 1 genes from module 60 to modules with higher KME.
+  ..reassigning 108 genes from module 61 to modules with higher KME.
+  ..reassigning 14 genes from module 62 to modules with higher KME.
+  ..reassigning 25 genes from module 63 to modules with higher KME.
+  ..reassigning 12 genes from module 64 to modules with higher KME.
+  ..reassigning 6 genes from module 65 to modules with higher KME.
+  ..reassigning 20 genes from module 66 to modules with higher KME.
+  ..reassigning 1 genes from module 67 to modules with higher KME.
+  ..reassigning 2 genes from module 68 to modules with higher KME.
+  ..reassigning 3 genes from module 69 to modules with higher KME.
+  ..reassigning 7 genes from module 70 to modules with higher KME.
+  ..reassigning 1 genes from module 72 to modules with higher KME.
+  ..reassigning 5 genes from module 73 to modules with higher KME.
+  ..reassigning 2 genes from module 74 to modules with higher KME.
+  ..reassigning 1 genes from module 75 to modules with higher KME.
+  ..reassigning 11 genes from module 76 to modules with higher KME.
+  ..reassigning 3 genes from module 77 to modules with higher KME.
+  ..reassigning 18 genes from module 78 to modules with higher KME.
+  ..reassigning 10 genes from module 79 to modules with higher KME.
+  ..reassigning 16 genes from module 80 to modules with higher KME.
+  ..reassigning 6 genes from module 81 to modules with higher KME.
+  ..reassigning 19 genes from module 82 to modules with higher KME.
+  ..reassigning 9 genes from module 83 to modules with higher KME.
+  ..reassigning 12 genes from module 84 to modules with higher KME.
+  ..reassigning 10 genes from module 85 to modules with higher KME.
+  ..reassigning 4 genes from module 86 to modules with higher KME.
+  ..reassigning 4 genes from module 88 to modules with higher KME.
+  ..reassigning 1 genes from module 89 to modules with higher KME.
+  ..reassigning 2 genes from module 90 to modules with higher KME.
+  ..reassigning 2 genes from module 91 to modules with higher KME.
+  ..reassigning 5 genes from module 95 to modules with higher KME.
+  ..reassigning 3 genes from module 96 to modules with higher KME.
+  ..reassigning 7 genes from module 97 to modules with higher KME.
+  ..reassigning 1 genes from module 99 to modules with higher KME.
+  ..reassigning 2 genes from module 100 to modules with higher KME.
+  ..reassigning 1 genes from module 101 to modules with higher KME.
+  ..reassigning 2 genes from module 102 to modules with higher KME.
+  ..reassigning 2 genes from module 103 to modules with higher KME.
+  ..reassigning 1 genes from module 104 to modules with higher KME.
+ ..merging modules that are too close..
+     mergeCloseModules: Merging modules whose distance is less than 0.25
+       Calculating new MEs...
+ Flagging genes and samples with too many missing values...
+  ..step 1
+pickSoftThreshold: will use block size 2050.
+ pickSoftThreshold: calculating connectivity for given powers...
+   ..working on genes 1 through 2050 of 21818
+# A tibble: 14 × 3
+   module_color   n_chaperones chaperone_genes      
+   <chr>                 <int> <chr>                
+ 1 black                     3 DNAJA3, HSPB1, SDHAF1
+ 2 red                       3 HSCB, GRPEL1, HSPE1  
+ 3 magenta                   2 HSPD1, CCT6A         
+ 4 darkgrey                  1 HSPB7                
+ 5 darkmagenta               1 HSP90AA1             
+ 6 darkolivegreen            1 HSP90AB1             
+ 7 green                     1 CRYAB                
+ 8 greenyellow               1 GRPEL2               
+ 9 grey                      1 HSPA9                
+10 grey60                    1 HSPB8                
+11 midnightblue              1 DNAJC19              
+12 purple                    1 TRAP1                
+13 turquoise                 1 CLPX                 
+14 yellow                    1 DNLZ                 
+# A tibble: 14 × 3
+   module_color n_chaperones chaperone_genes
+   <chr>               <int> <chr>          
+ 1 blue                    2 CRYAB, HSPB7   
+ 2 lightgreen              2 DNAJA3, TRAP1  
+ 3 purple                  2 HSPB1, HSPE1   
+ 4 salmon4                 2 HSPA9, GRPEL2  
+ 5 skyblue                 2 HSPD1, CCT6A   
+ 6 darkorange              1 GRPEL1         
+ 7 grey                    1 HSPB8          
+ 8 indianred4              1 DNAJC19        
+ 9 magenta                 1 DNLZ           
+10 navajowhite2            1 CLPX           
+11 orangered3              1 HSP90AB1       
+12 saddlebrown             1 HSCB           
+13 turquoise               1 HSP90AA1       
+14 yellow                  1 SDHAF1         
+                      Project Cluster Total_Chaperones Total_Modules
+TCGA-BRCA_cluster_1 TCGA-BRCA       1               19            14
+TCGA-BRCA_cluster_2 TCGA-BRCA       2               19            14
+                    Dominant_Module Dominant_Count Dominant_Percentage
+TCGA-BRCA_cluster_1           black              3                15.8
+TCGA-BRCA_cluster_2            blue              2                10.5
+# A tibble: 1 × 5
+  Project   n_clusters avg_chaperones_per_cluster avg_dominant_percentage
+  <chr>          <int>                      <dbl>                   <dbl>
+1 TCGA-BRCA          2                         19                    13.2
+# ℹ 1 more variable: consistent_clustering <lgl>

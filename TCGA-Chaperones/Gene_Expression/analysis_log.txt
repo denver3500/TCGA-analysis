@@ -1,0 +1,16 @@
+# A tibble: 5 × 3
+  gene_name pct_up mean_log2fc
+  <chr>      <dbl>       <dbl>
+1 CCT6A       90.5       0.603
+2 HSPE1       81         0.562
+3 HSP90AB1    66.7       0.299
+4 HSPD1       66.7       0.311
+5 GRPEL2      57.1       0.303
+# A tibble: 5 × 3
+  gene_name pct_down mean_log2fc
+  <chr>        <dbl>       <dbl>
+1 HSPB7         71.4     -2.19  
+2 HSPB8         66.7     -0.986 
+3 CRYAB         66.7     -0.969 
+4 CLPX          66.7     -0.363 
+5 DNAJB6        42.9     -0.0595
