@@ -1,0 +1,33 @@
+project_id,project_name,n_genes,n_samples,included_in_grid
+TCGA-ACC,Adrenocortical Carcinoma,22,79,TRUE
+TCGA-BLCA,Bladder Urothelial Carcinoma,22,412,TRUE
+TCGA-BRCA,Breast Invasive Carcinoma,22,1111,TRUE
+TCGA-CESC,Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma,22,304,TRUE
+TCGA-CHOL,Cholangiocarcinoma,22,35,TRUE
+TCGA-COAD,Colon Adenocarcinoma,22,481,TRUE
+TCGA-DLBC,Lymphoid Neoplasm Diffuse Large B-cell Lymphoma,22,48,TRUE
+TCGA-ESCA,Esophageal Carcinoma,22,184,TRUE
+TCGA-GBM,Glioblastoma Multiforme,22,372,TRUE
+TCGA-HNSC,Head and Neck Squamous Cell Carcinoma,22,520,TRUE
+TCGA-KICH,Kidney Chromophobe,22,66,TRUE
+TCGA-KIRC,Kidney Renal Clear Cell Carcinoma,22,541,TRUE
+TCGA-KIRP,Kidney Renal Papillary Cell Carcinoma,22,290,TRUE
+TCGA-LGG,Brain Lower Grade Glioma,22,516,TRUE
+TCGA-LIHC,Liver Hepatocellular Carcinoma,22,371,TRUE
+TCGA-LUAD,Lung Adenocarcinoma,22,539,TRUE
+TCGA-LUSC,Lung Squamous Cell Carcinoma,22,511,TRUE
+TCGA-MESO,Mesothelioma,22,87,TRUE
+TCGA-OV,Ovarian Serous Cystadenocarcinoma,22,421,TRUE
+TCGA-PAAD,Pancreatic Adenocarcinoma,22,178,TRUE
+TCGA-PCPG,Pheochromocytoma and Paraganglioma,22,179,TRUE
+TCGA-PRAD,Prostate Adenocarcinoma,22,501,TRUE
+TCGA-READ,Rectum Adenocarcinoma,22,166,TRUE
+TCGA-SARC,Sarcoma,22,259,TRUE
+TCGA-SKCM,Skin Cutaneous Melanoma,22,103,TRUE
+TCGA-STAD,Stomach Adenocarcinoma,22,412,TRUE
+TCGA-TGCT,Testicular Germ Cell Tumors,22,150,TRUE
+TCGA-THCA,Thyroid Carcinoma,22,505,TRUE
+TCGA-THYM,Thymoma,22,120,TRUE
+TCGA-UCEC,Uterine Corpus Endometrial Carcinoma,22,553,TRUE
+TCGA-UCS,Uterine Carcinosarcoma,22,57,TRUE
+TCGA-UVM,Uveal Melanoma,22,80,TRUE
