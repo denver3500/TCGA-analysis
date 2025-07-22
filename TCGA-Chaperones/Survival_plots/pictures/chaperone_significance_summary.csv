@@ -1,0 +1,23 @@
+Gene,Total_Projects_Tested,Times_Significant,Significance_Rate,Mean_P_Value,Min_P_Value,Projects_Significant,Times_High_Worse,Times_Low_Worse,Times_Equal,Survival_Direction_Pattern,Most_Common_Direction,Avg_High_Median_Days,Avg_Low_Median_Days
+HSPB7,32,9,28.1,0.2928,3e-4,"TCGA-ACC, TCGA-BLCA, TCGA-COAD, TCGA-HNSC, TCGA-KIRC, TCGA-LGG, TCGA-LUSC, TCGA-SKCM, TCGA-TGCT",7,2,0,Mostly High expression worse,High expression worse,562,660
+CCT6A,32,9,28.1,0.354,0.0037,"TCGA-GBM, TCGA-KICH, TCGA-KIRC, TCGA-KIRP, TCGA-LGG, TCGA-LUAD, TCGA-LUSC, TCGA-MESO, TCGA-SARC",6,3,0,Mostly High expression worse,High expression worse,639,689
+CRYAB,32,6,18.8,0.3621,6e-4,"TCGA-BLCA, TCGA-KIRP, TCGA-LGG, TCGA-OV, TCGA-READ, TCGA-STAD",4,2,0,Mostly High expression worse,High expression worse,745,707
+GRPEL1,32,6,18.8,0.3704,0.0018,"TCGA-KIRC, TCGA-KIRP, TCGA-LIHC, TCGA-LUAD, TCGA-LUSC, TCGA-SARC",3,3,0,Mixed (equal High/Low worse),Mixed/Equal,627,617
+HSPB1,32,6,18.8,0.4504,0,"TCGA-GBM, TCGA-KICH, TCGA-KIRC, TCGA-LGG, TCGA-READ, TCGA-UCEC",4,2,0,Mostly High expression worse,High expression worse,600,855
+HSPB8,32,5,15.6,0.3775,0.0068,"TCGA-ACC, TCGA-LGG, TCGA-LUSC, TCGA-SARC, TCGA-STAD",2,3,0,Mostly Low expression worse,Low expression worse,743,599
+DNAJB6,32,5,15.6,0.3915,0.007,"TCGA-CESC, TCGA-KIRC, TCGA-LGG, TCGA-MESO, TCGA-READ",2,3,0,Mostly Low expression worse,Low expression worse,678,676
+HSPD1,32,5,15.6,0.4087,0.0011,"TCGA-ACC, TCGA-GBM, TCGA-KIRP, TCGA-OV, TCGA-UCEC",2,3,0,Mostly Low expression worse,Low expression worse,719,733
+HSP90AB1,32,5,15.6,0.4097,0,"TCGA-CESC, TCGA-KIRP, TCGA-LGG, TCGA-SARC, TCGA-UVM",3,2,0,Mostly High expression worse,High expression worse,793,918
+SDHAF1,32,5,15.6,0.43,0.0051,"TCGA-ACC, TCGA-KIRC, TCGA-KIRP, TCGA-PAAD, TCGA-UVM",1,4,0,Mostly Low expression worse,Low expression worse,688,748
+DNAJC15,32,5,15.6,0.458,0.0069,"TCGA-ACC, TCGA-GBM, TCGA-HNSC, TCGA-LGG, TCGA-UCEC",2,3,0,Mostly Low expression worse,Low expression worse,628,592
+HSCB,32,4,12.5,0.3788,0.0095,"TCGA-HNSC, TCGA-KIRC, TCGA-PCPG, TCGA-UCEC",1,3,0,Mostly Low expression worse,Low expression worse,644,599
+CLPX,32,4,12.5,0.4094,0.0022,"TCGA-GBM, TCGA-KIRC, TCGA-LGG, TCGA-LIHC",1,3,0,Mostly Low expression worse,Low expression worse,733,556
+DNLZ,31,4,12.9,0.4172,5e-4,"TCGA-ACC, TCGA-KIRC, TCGA-MESO, TCGA-SKCM",4,0,0,Always High expression worse,High expression worse,523,880
+GRPEL2,32,4,12.5,0.4489,0.0019,"TCGA-ESCA, TCGA-LIHC, TCGA-READ, TCGA-UCEC",3,1,0,Mostly High expression worse,High expression worse,493,588
+HSP90AA1,32,4,12.5,0.4589,0.0064,"TCGA-BRCA, TCGA-LUAD, TCGA-PAAD, TCGA-UVM",1,3,0,Mostly Low expression worse,Low expression worse,761,747
+TRAP1,32,3,9.4,0.3622,0,"TCGA-COAD, TCGA-ESCA, TCGA-LGG",1,2,0,Mostly Low expression worse,Low expression worse,765,452
+DNAJC19,32,3,9.4,0.3726,0.011,"TCGA-CESC, TCGA-MESO, TCGA-SARC",0,3,0,Always Low expression worse,Low expression worse,689,493
+HSPE1,32,3,9.4,0.4,1e-4,"TCGA-ACC, TCGA-BLCA, TCGA-OV",0,3,0,Always Low expression worse,Low expression worse,739,641
+HSPA9,32,3,9.4,0.4306,0.0011,"TCGA-ACC, TCGA-KIRC, TCGA-UVM",2,1,0,Mostly High expression worse,High expression worse,998,938
+DNAJB2,32,2,6.2,0.3432,0.0158,"TCGA-COAD, TCGA-KIRP",1,1,0,Mixed (equal High/Low worse),Mixed/Equal,845,592
+DNAJA3,32,1,3.1,0.5442,0.0468,TCGA-UCS,1,0,0,Always High expression worse,High expression worse,442,481
