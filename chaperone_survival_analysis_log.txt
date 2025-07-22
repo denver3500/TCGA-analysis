@@ -1,0 +1,95 @@
+Found 0 TCGA projects with clustering results
+
+Survival analysis complete! Results are saved in the survival_analysis directory.
+Found 0 TCGA projects with clustering results
+
+Survival analysis complete! Results are saved in the survival_analysis directory.
+Warning messages:
+1: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+2: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+3: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+4: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+5: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+6: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+7: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+8: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+9: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+10: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+11: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+12: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+13: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+14: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+15: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+16: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+17: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+18: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+19: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+20: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+21: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+22: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+23: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+24: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+25: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+26: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+27: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+28: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+29: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+30: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+31: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+32: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+33: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+34: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+35: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+36: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+37: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+38: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+39: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+40: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+41: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+42: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+43: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
+44: In (function (mapping = NULL, data = NULL, stat = "identity",  ... :
+  Ignoring unknown parameters: `width`
