@@ -3,11 +3,6 @@
 # 2. Project similarity clustering
 # 3. 4x8 grid layout with corrplot
 
-target_dir <- "TCGA-Chaperones/Gene_Correlation"
-if (!endsWith(getwd(), target_dir)) {
-  setwd(target_dir)
-}
-
 library(tidyverse)
 library(SummarizedExperiment)
 library(TCGAbiolinks)
@@ -20,7 +15,9 @@ library(ComplexHeatmap)
 library(circlize)
 
 # Set up logging
-log_file <- "comprehensive_correlation_analysis_log.txt"
+log_file <- "TCGA-Chaperones/Gene_Correlation/comprehensive_correlation_analysis_log.txt"
+# Create directory if it doesn't exist
+dir.create(dirname(log_file), showWarnings = FALSE, recursive = TRUE)
 con <- file(log_file, "w")
 sink(con, split = TRUE)
 
@@ -46,8 +43,8 @@ for (i in seq_along(project_order)) {
   message(sprintf("  %d. %s", i, project_order[i]))
 }
 
-# Load gene list
-gene_list <- read.csv("../gene_list.csv", stringsAsFactors = FALSE)
+# Load gene list - using path from project root
+gene_list <- read.csv("TCGA-Chaperones/gene_list.csv", stringsAsFactors = FALSE)
 message("Loaded ", nrow(gene_list), " chaperone genes")
 message("Gene names: ", paste(gene_list$Name, collapse = ", "))
 
@@ -59,15 +56,15 @@ projects_info <- projects_info %>%
   select(project_id, name)
 message("Found ", nrow(projects_info), " TCGA projects in GDC database")
 
-# Get all TCGA .rds files from raw_data directory
-raw_data_dir <- "../../raw_data"
+# Get all TCGA .rds files from raw_data directory - using path from project root
+raw_data_dir <- "raw_data"
 message("\n=== Scanning for TCGA data files ===")
 message("Scanning directory: ", raw_data_dir)
 tcga_files <- list.files(raw_data_dir, pattern = "^TCGA-.*_transcriptomic_exp\\.rds$", full.names = TRUE)
 message("Found ", length(tcga_files), " TCGA files")
 
-# Create output directory
-output_dir <- "pictures/"
+# Create output directory - using path from project root
+output_dir <- "TCGA-Chaperones/Gene_Correlation/pictures/"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 message("\nOutput directory: ", output_dir)
 

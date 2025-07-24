@@ -13,8 +13,10 @@ library(readr)
 library(TCGAbiolinks)
 library(DESeq2)
 
-# Set up logging
+# Set up logging 
 log_file <- "TCGA-Chaperones/Gene_Expression/analysis_log.txt"
+# Create directory if it doesn't exist
+dir.create(dirname(log_file), showWarnings = FALSE, recursive = TRUE)
 con <- file(log_file, "w")
 sink(con, split = TRUE)
 
@@ -421,11 +423,18 @@ col_anno_zscore <- data.frame(
 )
 rownames(col_anno_zscore) <- matched_genes_zscore
 
-# Create colors for families
-family_colors_zscore <- setNames(
-  colorRampPalette(brewer.pal(9, "Set1"))(length(unique(col_anno_zscore$Family))),
-  unique(col_anno_zscore$Family)
-)
+# Create colors for families - sort families to ensure consistent color assignment across scripts
+unique_families_zscore <- sort(unique(col_anno_zscore$Family))
+# Use consistent family color assignment logic across all scripts
+if (length(unique_families_zscore) <= 9) {
+  family_colors_zscore <- setNames(brewer.pal(max(3, length(unique_families_zscore)), "Set1")[1:length(unique_families_zscore)], 
+                                 unique_families_zscore)
+} else {
+  family_colors_zscore <- setNames(
+    colorRampPalette(brewer.pal(9, "Set1"))(length(unique_families_zscore)),
+    unique_families_zscore
+  )
+}
 
 anno_colors_zscore <- list(Family = family_colors_zscore)
 
@@ -547,11 +556,18 @@ if (nrow(log2fc_data) > 0) {
   )
   rownames(col_anno_log2fc) <- matched_genes_log2fc
   
-  # Create colors for families
-  family_colors_log2fc <- setNames(
-    colorRampPalette(brewer.pal(9, "Set1"))(length(unique(col_anno_log2fc$Family))),
-    unique(col_anno_log2fc$Family)
-  )
+  # Create colors for families - sort families to ensure consistent color assignment across scripts
+  unique_families_log2fc <- sort(unique(col_anno_log2fc$Family))
+  # Use consistent family color assignment logic across all scripts
+  if (length(unique_families_log2fc) <= 9) {
+    family_colors_log2fc <- setNames(brewer.pal(max(3, length(unique_families_log2fc)), "Set1")[1:length(unique_families_log2fc)], 
+                                   unique_families_log2fc)
+  } else {
+    family_colors_log2fc <- setNames(
+      colorRampPalette(brewer.pal(9, "Set1"))(length(unique_families_log2fc)),
+      unique_families_log2fc
+    )
+  }
   
   anno_colors_log2fc <- list(Family = family_colors_log2fc)
   
