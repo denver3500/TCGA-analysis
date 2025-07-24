@@ -268,14 +268,44 @@ for(i in 1:nrow(mean_correlations)) {
   mean_cor_matrix[gene2, gene1] <- corr_val
 }
 
+# Create gene family annotations
+message("Creating gene family annotations...")
+gene_family_data <- gene_list %>%
+  select(Name, Family) %>%
+  filter(Name %in% common_genes)
+
+# Create family annotation dataframe
+gene_family_df <- data.frame(
+  Family = gene_family_data$Family[match(common_genes, gene_family_data$Name)],
+  stringsAsFactors = FALSE
+)
+rownames(gene_family_df) <- common_genes
+
+# Define family colors - sort families to ensure consistent color assignment across scripts
+unique_families <- sort(unique(gene_family_df$Family))
+# Use consistent family color assignment logic across all scripts
+if (length(unique_families) <= 9) {
+  family_colors <- setNames(brewer.pal(max(3, length(unique_families)), "Set1")[1:length(unique_families)], 
+                           unique_families)
+} else {
+  family_colors <- setNames(
+    colorRampPalette(brewer.pal(9, "Set1"))(length(unique_families)),
+    unique_families
+  )
+}
+
+annotation_colors <- list(Family = family_colors)
+
+message("Gene families found: ", paste(unique_families, collapse = ", "))
+
 # Create mean correlation heatmap
 png(file.path(output_dir, "mean_correlation_heatmap.png"), 
-    width = 14, height = 12, units = "in", res = 300, bg = "white")
+    width = 16, height = 14, units = "in", res = 300, bg = "white")
 
 # Color
 col_fun <- colorRamp2(c(-1, 0, 1), c("blue", "white", "red"))
 
-# Heatmap
+# Heatmap with family annotations
 ht <- Heatmap(mean_cor_matrix,
               col = col_fun,
               name = "Correlation",  # This sets the legend title
@@ -287,11 +317,26 @@ ht <- Heatmap(mean_cor_matrix,
               show_column_names = TRUE,
               row_names_gp = gpar(fontsize = 12),
               column_names_gp = gpar(fontsize = 12),
+              # Add family annotations
+              left_annotation = rowAnnotation(
+                Family = gene_family_df$Family,
+                col = annotation_colors,
+                annotation_name_gp = gpar(fontsize = 12),
+                simple_anno_size = unit(0.5, "cm"),
+                show_legend = TRUE
+              ),
+              top_annotation = HeatmapAnnotation(
+                Family = gene_family_df$Family,
+                col = annotation_colors,
+                annotation_name_gp = gpar(fontsize = 12),
+                simple_anno_size = unit(0.5, "cm"),
+                show_legend = FALSE  # Hide legend for top annotation to avoid duplication
+              ),
               cell_fun = function(j, i, x, y, width, height, fill) {
                 if(!is.na(mean_cor_matrix[i, j]))
-                  grid.text(sprintf("%.2f", mean_cor_matrix[i, j]), x, y, gp = gpar(fontsize = 10))
+                  grid.text(sprintf("%.2f", mean_cor_matrix[i, j]), x, y, gp = gpar(fontsize = 8))
               },
-              column_title = "Mean mitochondrial chaperone correlations across different TCGA projects",
+              column_title = "Mean mitochondrial chaperone correlations across different TCGA projects\n(genes grouped by chaperone family)",
               column_title_gp = gpar(fontsize = 16, fontface = "bold"),
               heatmap_legend_param = list(
                 title = "Correlation",
