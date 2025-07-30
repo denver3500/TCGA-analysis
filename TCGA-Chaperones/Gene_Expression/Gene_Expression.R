@@ -450,7 +450,7 @@ pheatmap(
   fontsize = 10,
   fontsize_row = 9,
   fontsize_col = 10,
-  angle_col = 45,
+  angle_col = "45",
   clustering_distance_rows = "euclidean",
   clustering_distance_cols = "euclidean",
   clustering_method = "ward.D2",
@@ -465,8 +465,8 @@ dev.off()
 
 # PDF version
 pdf(file.path(output_dir, "tcga_chaperone_zscore_heatmap.pdf"), 
-    width = 20, height = 14)
-pheatmap(
+    width = 20, height = 14, onefile = FALSE)
+print(pheatmap(
   zscore_matrix,
   color = colorRampPalette(rev(brewer.pal(11, "RdBu")))(100),
   annotation_col = col_anno_zscore,
@@ -475,7 +475,7 @@ pheatmap(
   fontsize = 10,
   fontsize_row = 9,
   fontsize_col = 10,
-  angle_col = 45,
+  angle_col = "45",
   clustering_distance_rows = "euclidean",
   clustering_distance_cols = "euclidean",
   clustering_method = "ward.D2",
@@ -484,11 +484,19 @@ pheatmap(
   legend_breaks = c(-2, -1, 0, 1, 2),
   legend_labels = c("-2.0", "-1.0", "0.0", "+1.0", "+2.0"),
   cellwidth = 25,
-  cellheight = 15
-)
+  cellheight = 15,
+  silent = TRUE
+))
 dev.off()
 
 message("Created z-score heatmap with ", nrow(zscore_matrix), " projects and ", ncol(zscore_matrix), " genes")
+# Save CSV for z-score heatmap
+message("Saving z-score heatmap CSV...")
+zscore_df <- as.data.frame(zscore_matrix)
+zscore_df$project_name <- rownames(zscore_df)
+zscore_df <- zscore_df %>% select(project_name, everything())
+write_csv(zscore_df, file.path(output_dir, "zscore_heatmap_data.csv"))
+message("Saved: zscore_heatmap_data.csv")
 
 # 2. Log2FC heatmap for projects with normal vs tumor comparison
 message("Creating log2FC heatmap for projects with normal comparison...")
@@ -585,7 +593,7 @@ if (nrow(log2fc_data) > 0) {
     fontsize = 10,
     fontsize_row = 9,
     fontsize_col = 10,
-    angle_col = 45,
+    angle_col = "45",
     clustering_distance_rows = "euclidean",
     clustering_distance_cols = "euclidean",
     clustering_method = "ward.D2",
@@ -600,8 +608,8 @@ if (nrow(log2fc_data) > 0) {
   
   # PDF version
   pdf(file.path(output_dir, "tcga_chaperone_log2fc_heatmap.pdf"), 
-      width = 20, height = 14)
-  pheatmap(
+      width = 20, height = 14, onefile = FALSE)
+  print(pheatmap(
     log2fc_matrix,
     color = colorRampPalette(rev(brewer.pal(11, "RdBu")))(100),
     display_numbers = sig_annotation,
@@ -612,7 +620,7 @@ if (nrow(log2fc_data) > 0) {
     fontsize = 10,
     fontsize_row = 9,
     fontsize_col = 10,
-    angle_col = 45,
+    angle_col = "45",
     clustering_distance_rows = "euclidean",
     clustering_distance_cols = "euclidean",
     clustering_method = "ward.D2",
@@ -621,11 +629,19 @@ if (nrow(log2fc_data) > 0) {
     legend_breaks = c(-2, -1, 0, 1, 2),
     legend_labels = c("-2.0", "-1.0", "0.0", "+1.0", "+2.0"),
     cellwidth = 25,
-    cellheight = 15
-  )
+    cellheight = 15,
+    silent = TRUE
+  ))
   dev.off()
   
   message("Created log2FC heatmap with ", nrow(log2fc_matrix), " projects and ", ncol(log2fc_matrix), " genes")
+    # Save CSV for log2FC heatmap
+  message("Saving log2FC heatmap CSV...")
+  log2fc_df <- as.data.frame(log2fc_matrix)
+  log2fc_df$project_name <- rownames(log2fc_df)
+  log2fc_df <- log2fc_df %>% select(project_name, everything())
+  write_csv(log2fc_df, file.path(output_dir, "log2fc_heatmap_data.csv"))
+  message("Saved: log2fc_heatmap_data.csv")
 } else {
   message("No projects with normal vs tumor comparison found")
 }

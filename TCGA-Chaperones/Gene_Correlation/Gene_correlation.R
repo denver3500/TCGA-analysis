@@ -349,6 +349,14 @@ draw(ht)
 dev.off()
 message("Saved mean correlation heatmap: mean_correlation_heatmap.png")
 
+# Save mean correlation matrix CSV
+message("Saving mean_correlation_matrix.csv...")
+mean_cor_df <- as.data.frame(mean_cor_matrix)
+mean_cor_df$gene <- rownames(mean_cor_df)
+mean_cor_df <- mean_cor_df %>% select(gene, everything())
+write_csv(mean_cor_df, file.path(output_dir, "mean_correlation_matrix.csv"))
+message("Saved: mean_correlation_matrix.csv")
+
 # ============================================================================
 # 2. PROJECT SIMILARITY CLUSTERING
 # ============================================================================
@@ -437,6 +445,14 @@ draw(ht2, padding = unit(c(3, 3, 3, 3), "cm"))
 dev.off()
 message("Saved project similarity clustering: project_similarity_clustering.png")
 
+# Save project similarity matrix CSV
+message("Saving project_similarity_matrix.csv...")
+proj_sim_df <- as.data.frame(project_similarity)
+proj_sim_df$project_id <- rownames(proj_sim_df)
+proj_sim_df <- proj_sim_df %>% select(project_id, everything())
+write_csv(proj_sim_df, file.path(output_dir, "project_similarity_matrix.csv"))
+message("Saved: project_similarity_matrix.csv")
+
 # ============================================================================
 # 3. 4x8 GRID LAYOUT WITH CORRPLOT
 # ============================================================================
@@ -497,6 +513,30 @@ mtext("Mitochondrial chaperone gene correlations across TCGA projects",
 dev.off()
 message("Saved 4x8 corrplot grid: tcga_correlations_4x8_corrplot.png")
 
+# Save grid correlations CSV
+message("Saving grid_correlations_all_projects.csv...")
+grid_correlations_list <- list()
+for (i in 1:length(ordered_matrices)) {
+  project_id <- names(ordered_matrices)[i]
+  project_name <- ordered_labels[project_id]
+  mat <- ordered_matrices[[project_id]][genes_sorted, genes_sorted]
+  
+  # Convert matrix to long format
+  mat_df <- expand_grid(gene1 = rownames(mat), gene2 = colnames(mat)) %>%
+    mutate(
+      correlation = as.vector(mat),
+      project_id = project_id,
+      project_name = project_name,
+      grid_position = i
+    )
+  
+  grid_correlations_list[[project_id]] <- mat_df
+}
+
+grid_correlations_combined <- bind_rows(grid_correlations_list)
+write_csv(grid_correlations_combined, file.path(output_dir, "grid_correlations_all_projects.csv"))
+message("Saved: grid_correlations_all_projects.csv")
+
 # ============================================================================
 # SAVE RESULTS AND SUMMARY
 # ============================================================================
@@ -535,9 +575,16 @@ write_csv(project_summary, file.path(output_dir, "project_summary.csv"))
 message("\n=== ANALYSIS COMPLETE ===")
 message("Successfully created three types of correlation visualizations:")
 message("1. Mean correlation heatmap: mean_correlation_heatmap.png")
+message("   - Data file: mean_correlation_matrix.csv")
 message("2. Project similarity clustering: project_similarity_clustering.png")
+message("   - Data file: project_similarity_matrix.csv")
 message("3. 4x8 grid corrplot: tcga_correlations_4x8_corrplot.png")
-message("3. 4x8 grid corrplot: tcga_correlations_4x8_corrplot.png")
+message("   - Data file: grid_correlations_all_projects.csv")
+message("")
+message("Additional files:")
+message("  - mean_correlations.csv (pairwise gene correlations)")
+message("  - project_summary.csv (project metadata)")
+message("  - comprehensive_correlation_results.rds (R objects for reuse)")
 message("")
 message("Data processed:")
 message("  - TCGA projects: ", length(correlation_results))
