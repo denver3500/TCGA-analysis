@@ -505,6 +505,35 @@ generate_dendrogram_analysis <- function(combined_data, clustering_results) {
     
     dev.off()
     message("Generated heatmap with ", k, " clusters: ", heatmap_file)
+    
+    # Save patient cluster information for 7 clusters
+    if (k == 7) {
+      # Create patient ID lists for each cluster
+      patient_cluster_lists <- list()
+      
+      for (cluster_num in 1:k) {
+        cluster_patients <- patient_metadata$Patient_ID[patient_clusters == cluster_num]
+        patient_cluster_lists[[paste0("Cluster_", cluster_num)]] <- cluster_patients
+      }
+      
+      # Save patient IDs by cluster to separate files for easy manual stratification
+      for (cluster_num in 1:k) {
+        cluster_file <- file.path(pictures_dir, paste0("cluster_", cluster_num, "_patient_ids.txt"))
+        cluster_patients <- patient_metadata$Patient_ID[patient_clusters == cluster_num]
+        writeLines(cluster_patients, cluster_file)
+        message("Saved ", length(cluster_patients), " patient IDs for Cluster ", cluster_num, " to: ", cluster_file)
+      }
+      
+      # Also create a single summary file with all clusters
+      cluster_summary_file <- file.path(pictures_dir, "all_clusters_7_patient_ids.csv")
+      patient_cluster_mapping <- data.frame(
+        Patient_ID = patient_metadata$Patient_ID,
+        Cluster = patient_clusters,
+        stringsAsFactors = FALSE
+      )
+      write.csv(patient_cluster_mapping, cluster_summary_file, row.names = FALSE)
+      message("Saved complete patient-to-cluster mapping to: ", cluster_summary_file)
+    }
   }
   
   message("All dendrograms and heatmaps saved to: ", pictures_dir)
@@ -534,6 +563,8 @@ main <- function(force_recompute_data = FALSE, force_recompute_clustering = FALS
   message("- heatmap_3_clusters.pdf")
   message("- heatmap_5_clusters.pdf")
   message("- heatmap_7_clusters.pdf")
+  message("- cluster_1_patient_ids.txt through cluster_7_patient_ids.txt (patient IDs for each cluster)")
+  message("- all_clusters_7_patient_ids.csv (complete patient-to-cluster mapping)")
   
   message("\nCached data available for future runs:")
   message("- Combined expression data: ", combined_data_cache)
