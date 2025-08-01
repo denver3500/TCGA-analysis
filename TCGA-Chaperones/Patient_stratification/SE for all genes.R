@@ -262,6 +262,6 @@ main <- function(force_recompute = FALSE) {
 
 # Run the analysis
 # Set force_recompute=TRUE to recreate the comprehensive SE from scratch
-result <- main(force_recompute = TRUE)
+result <- main(force_recompute = FALSE)
 
 message("\n=== Comprehensive SE creation completed at: ", Sys.time(), " ===")
